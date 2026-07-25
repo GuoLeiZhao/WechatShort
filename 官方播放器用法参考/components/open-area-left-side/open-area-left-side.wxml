@@ -1,0 +1,14 @@
+<view wx:if="{{item.type === 'btn'}}" class="go-back-btn" bind:tap="onGoBack">返回</view>
+
+<view wx:elif="{{item.type === 'unlock' && !unlocked}}" class="back unlock">
+  <view class="back-btn" bind:tap="onNextUnlock">下次再说</view>
+  <view wx:if="{{isCountdownActive}}" class="back-unlock" bind:tap="showAd">
+    {{countdown}}秒后自动看广告解锁
+  </view>
+  <view wx:elif="{{showUnlockText}}" class="back-unlock" bind:tap="showAd">
+    点击看广告解锁
+  </view>
+  <view wx:else class="back-unlock" bind:tap="showAd">
+    {{countdownSeconds}}秒后自动看广告解锁
+  </view>
+</view>

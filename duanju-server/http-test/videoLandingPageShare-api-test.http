@@ -1,0 +1,45 @@
+
+### insert
+POST http://localhost:8183/sqx_fast/videoLandingPageShare
+Content-Type: application/json
+Cookie: token=f1e664be5cff7c255dd1541da9b13863
+Token: f1e664be5cff7c255dd1541da9b13863
+
+{
+  "groupName": "点众",
+  "url": "pages/videoInfoSub/videoInfoSub?bookId=41000100970&sid=1&channelId=34025&referral_id=15329789",
+  "appId": "wxf57eec8f5c9a5887",
+  "name": "乱世巨星",
+  "pic": "https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/duanju-mp-index/img/pic/乱世巨星.jpg"
+}
+
+### update
+PUT http://localhost:8183/sqx_fast/videoLandingPageShare
+Content-Type: application/json
+Cookie: token=f1e664be5cff7c255dd1541da9b13863
+Token: f1e664be5cff7c255dd1541da9b13863
+
+{
+  "id": 1,
+  "groupName": "愈好",
+  "url": "pages/videoInfoSub/videoInfoSub?bookId=41000100970&sid=1&channelId=34025&referral_id=15329789",
+  "appId": "wxf57eec8f5c9a5887",
+  "name": "乱世巨星",
+  "pic": "https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/duanju-mp-index/img/pic/乱世巨星.jpg"
+}
+
+### query
+GET http://localhost:8183/sqx_fast/app/videoLandingPageShare/selectPage
+
+
+### getById
+GET http://localhost:8183/sqx_fast/app/videoLandingPageShare/selectById/1
+
+
+### delete
+DELETE http://localhost:8183/sqx_fast/videoLandingPageShare/1
+Cookie: token=f1e664be5cff7c255dd1541da9b13863
+Token: f1e664be5cff7c255dd1541da9b13863
+
+
+

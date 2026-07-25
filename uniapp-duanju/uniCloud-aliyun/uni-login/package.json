@@ -1,0 +1,11 @@
+{
+  "name": "uni-login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "extensions": {
+      "uni-cloud-verify": {} // 启用一键登录扩展，值为空对象即可
+  }
+}

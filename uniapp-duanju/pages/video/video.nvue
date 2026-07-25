@@ -1,0 +1,541 @@
+<template>
+	<view class="detail">
+		<swiper :circular="false" class="swipers" @change="change" :current="current" :vertical="true"
+			:indicator-dots="false" :autoplay="false" :interval="3000" :duration="300">
+			<swiper-item class="swipers-item" v-for="(item,index) in swiperList" :key="item.courseDetailsId">
+				<view class="swipers-items">
+					<!-- 视频 -->
+					<video 
+						object-fit="cover" 
+						v-if="current === index && item.videoUrl" 
+						:play-strategy="2"
+						:show-loading="true" 
+						codec="software"
+						:muted="false" 
+						:show-center-play-btn="true" 
+						:loop="true"
+						:enable-progress-gesture="false" 
+						:poster="item.titleImg"
+						:ref="'myVideo'+item.courseDetailsId" 
+						:id="'myVideo'+item.courseDetailsId" 
+						:src="item.videoUrl"
+						:autoplay="item.autoPlay" 
+						play-btn-position="center"
+						class="swipers-items-video"
+					>
+					</video>
+					<image v-else :src="item.titleImg" class="swipers-items-imgsbg" mode="aspectFill">
+					</image>
+					<!-- 右边操作 -->
+					<view class="swipers-items-right" :style="rightTop">
+						
+						<view class="swipers-items-right-item">
+							<view class="swipers-items-right-item-img" @click.stop="dianzan(item)">
+								<image v-if="item.isGood!=null && item.isGood!=0" class="swipers-items-right-item-imgs"
+									src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/myLove_.png" mode=""></image>
+								<image v-else class="swipers-items-right-item-imgs"
+									src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/myLove.png" mode=""></image>
+							</view>
+							<view class="swipers-items-right-item-txt">
+								<text class="swipers-items-right-item-txts">
+									{{item.goodNum}}
+								</text>
+							</view>
+						</view>
+						<view class="swipers-items-right-item" @click="share()">
+							<view class="swipers-items-right-item-img">
+								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png"
+									mode=""></image>
+							</view>
+							<view class="swipers-items-right-item-txt">
+								<text class="swipers-items-right-item-txts">
+									分享
+								</text>
+							</view>
+						</view>
+						<view class="swipers-items-right-item" v-if="item.isCollect==null || item.isCollect == 0">
+							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
+								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png"
+									mode=""></image>
+							</view>
+							<view class="swipers-items-right-item-txt">
+								<text class="swipers-items-right-item-txts">
+									追剧
+								</text>
+							</view>
+						</view>
+						<view class="swipers-items-right-item" v-else>
+							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
+								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png"
+									mode=""></image>
+							</view>
+							<view class="swipers-items-right-item-txt">
+								<text class="swipers-items-right-item-txts">
+									已追
+								</text>
+							</view>
+						</view>
+					</view>
+					<!-- 底部视频信息 -->
+					<!-- <view class="swipers-items-btom">
+						<view class="swipers-items-btom-box">
+							标题
+							<view class="swipers-items-btom-box-title">
+								<text class="swipers-items-btom-box-titles">
+									{{item.title}}
+								</text>
+							</view>
+							介绍
+							<view v-if="item.content" class="swipers-items-btom-box-content">
+								<text class="swipers-items-btom-box-contents">{{item.content}}</text>
+							</view>
+							集数
+							<view @click="goCourse(item.courseId,item.courseDetailsId)"
+								class="swipers-items-btom-box-num">
+								<text class="swipers-items-btom-box-nums">
+									查看更多续集 >
+								</text>
+							</view>
+						</view>
+					</view> -->
+					
+					<view class="swipers-items-btom">
+						
+					</view>
+					
+				</view>
+			</swiper-item>
+		</swiper>
+	</view>
+</template>
+
+<script>
+	import config from '../../common/config.js'
+	import httpsRequest from '../../common/httpRequest.js'
+	export default {
+		data() {
+			return {
+				tabBarJson: {},
+				isStart: false, //是否开始生成二维码
+				erweima: '',
+				qrCodeData: '',
+				haibaoImg: '',
+				showImg: false,
+				haibaoShow: false,
+				imgSrc: '',
+				current: 0,
+				maskCustomStyle: {
+					background: 'rgba(0, 0, 0, 0.5)'
+				},
+				show: false,
+				videoList: [],
+				videoContext: null, //记录当前视频的上下文
+				isVIP: false, //是否是vip
+				courseId: '',
+				meunList: [], //菜单
+				meunTop: 37, //返回图标距离顶部的距离
+				num: 1, //当前播放的集数
+				showPay: false, //购买视频的弹窗
+				info: {}, //整部的信息
+				courseDetailsId: '', //详情id
+				scrollIntoView: '', //当前播放视频的位置
+				scrollIntoViews: 'video0', //当前播放视频的位置
+				isVips: '否', //是否显示会员
+				rightTop: {
+					top: '0rpx'
+				},
+				title: '',
+			};
+		},
+		computed: {
+			swiperList() {
+				return this.videoList;
+			}
+		},
+		onLoad(e) {
+			let that = this
+			//获取设备的高度
+			uni.getSystemInfo({
+				success(res) {
+					//计算右侧操作拦的位置
+					that.rightTop.top = res.screenHeight + 'rpx'
+				},
+				fail() {
+					//如果获取屏幕的高度失败，那么位置默认设置为通用高度630rpx
+					that.rightTop.top = '630rpx'
+				}
+			})
+			this.tabBarJson = require('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/json/tabBar.json')
+
+		},
+		onShow() {
+			this.getDataList();
+
+			// 修改 tabbar 为 dark 模式
+			uni.setTabBarStyle({
+				"color": "rgba(255, 255, 255, 0.5)",
+				"selectedColor": "rgba(255, 255, 255, 1)",
+				"backgroundColor": "#000",
+				// "borderStyle": "white",
+			});
+
+			this.tabBarJson.dark.forEach((item, idx) => {
+				uni.setTabBarItem(item);
+			})
+
+		},
+		onHide() {
+			this.$nextTick(() => {
+				if (this.videoContext) { //判断之前是否有视频的上下文
+					this.meunList = [];
+					this.videoList = [];
+					this.videoContext.stop();
+					this.videoContext = null;
+					this.current = 0;
+				}
+			})
+
+			// 修改 tabbar 回 bright
+			uni.setTabBarStyle({
+				"color": "rgba(51, 51, 51, 0.5)",
+				"selectedColor": "rgba(51, 51, 51, 1)",
+				"backgroundColor": "#FFFFFF",
+				"borderStyle": "black",
+			});
+
+			this.tabBarJson.bright.forEach((item, idx) => {
+				uni.setTabBarItem(item);
+			})
+
+			console.log('视频页面隐藏啦～～～')
+		},
+		methods: {
+			// 跳转资源详情
+			goCourse(e, courseDetailsId) {
+				let userId = uni.getStorageSync('userId')
+				if (userId) {
+			
+					// #ifndef MP-WEIXIN
+					uni.navigateTo({
+						url: '/me/detail/detail?id=' + e + '&courseDetailsId=' + courseDetailsId
+					})
+					// #endif
+					// #ifdef MP-WEIXIN
+					uni.navigateTo({
+						url: '/me/detail/detailMPWechat?id=' + e + '&courseDetailsId=' + courseDetailsId
+					})
+					// #endif
+				} else {
+					uni.navigateTo({
+						url: "/pages/login/login"
+					})
+				}
+			},
+			//分享-复制app下载连接
+			share() {
+				let url = uni.getStorageSync('AppUrl')
+				uni.setClipboardData({
+					data: url,
+					success(res) {
+						uni.showToast({
+							title: '已复制下载链接'
+						})
+					}
+				})
+			},
+			//收藏
+			shoucang(item) {
+				if (uni.getStorageSync('token')) {
+					let data = {
+						courseId: item.courseId,
+						courseDetailsId: item.courseDetailsId,
+						classify: 1,
+						type: item.isCollect == 0 ? 1 : 0
+					}
+					httpsRequest.postJson('/app/courseCollect/insertCourseCollect', data).then(res => {
+						if (res.code == 0) {
+							if (data.type == 1) {
+								item.isCollect = 1;
+							} else {
+								item.isCollect = 0;
+							}
+						}
+					})
+				} else {
+					uni.navigateTo({
+						url: "/pages/login/login"
+					})
+				}
+
+			},
+
+			//点赞
+			dianzan(item) {
+				if (uni.getStorageSync('token')) {
+					let data = {
+						courseId: item.courseId,
+						courseDetailsId: item.courseDetailsId,
+						classify: 2,
+						type: item.isGood == 0 ? 1 : 0
+					};
+					httpsRequest.postJson('/app/courseCollect/insertCourseCollect', data).then(res => {
+						if (res.code == 0) {
+							if (data.type == 1) {
+								item.isGood = 1;
+								item.goodNum += 1;
+							} else {
+								item.isGood = 0;
+								item.goodNum -= 1;
+							}
+						}
+					})
+				} else {
+					uni.navigateTo({
+						url: "/pages/login/login"
+					})
+				}
+
+			},
+			//swiper上下切换事件
+			change(e) {
+				//拿出当前的swiper索引
+				let current = Number(e.detail.current);
+				this.scrollIntoView = 'video' + current
+				this.$nextTick(() => {
+					this.current = current
+					this.startPlay(current)
+				})
+				if (uni.getStorageSync('token')) {
+					//插入历史记录
+					this.setHistor(this.videoList[this.current].courseId, this.videoList[this.current].courseDetailsId);
+				}
+
+			},
+			//控制播放
+			startPlay(current) {
+				if (this.videoContext) { //判断之前是否有视频的上下文
+					this.videoContext.stop();
+					this.videoContext = null;
+				}
+				let numIdCurr = this.videoList[current].courseDetailsId;
+				// 播放时记录当前播放的id
+				this.videoContextId = 'myVideo' + numIdCurr;
+				this.videoContext = uni.createVideoContext(this.videoContextId, this);
+				this.$nextTick(() => {
+					//播放当前的
+					this.videoContext.play();
+					this.$forceUpdate();
+				})
+			},
+			/**
+			 * @param {Number} courseId 总id
+			 * @param {Number} courseDetailsId 当前视频id
+			 * @param {boolean} type 是购买后返回的还是直接进来的
+			 */
+			getDataList() {
+				let data = {
+					page: 1,
+					limit: 999999,
+					token: uni.getStorageSync('token') ? uni.getStorageSync('token') : ''
+				};
+				httpsRequest.getT('/app/course/selectCourseDetailsList', data).then(res => {
+					console.log(res);
+					if (res.code == 0) {
+						this.pages = res.data.totalPage
+						if (res.data.list) {
+							let arr = JSON.parse(JSON.stringify(res.data.list))
+							arr.map((item, index) => {
+								item.num = index + 1
+								item.autoPlay = true
+							})
+							//菜单数组
+							this.meunList = arr
+							// if (this.courseId && this.courseDetailsId) {
+							// 	let indexs = this.meunList.findIndex(item => item.courseDetailsId === Number(this
+							// 		.courseDetailsId));
+							// 	let lengths = this.meunList.length - (indexs + 1)
+							// 	this.videoList = [this.meunList[indexs]]
+							// 	//有最少两条
+							// 	if (lengths >= 2) {
+							// 		this.videoList = [...this.videoList, ...this.meunList.slice(indexs + 1,
+							// 			indexs + 3)]
+							// 	}
+							// 	//只剩一条数据
+							// 	if (lengths == 1) {
+							// 		//把剩下的一条给放进去
+							// 		this.videoList = [
+							// 			//选中的那条
+							// 			...this.videoList,
+							// 			//身下的一条
+							// 			this.meunList[this.meunList.length - 1],
+							// 			//最后一条则放总数组的第一条
+							// 			this.meunList[0]
+							// 		]
+							// 	}
+							// 	//选择的就是最后一条数据
+							// 	if (lengths == 0) {
+							// 		//后两条拿总数组的前两条就可以了
+							// 		this.videoList = [...this.videoList, ...this.meunList.slice(0, 2)]
+							// 	}
+							// }
+							// //视频数组//直接拿前三条
+							this.videoList = this.meunList
+							let numIdCurr = this.videoList[0].courseDetailsId;
+							this.videoContextId = 'myVideo' + numIdCurr;
+
+							this.$nextTick(() => {
+								this.videoContext = uni.createVideoContext(this.videoContextId, this);
+								this.videoContext.play();
+							})
+
+							if (uni.getStorageSync('token')) { //如果有token则插入
+								//插入历史记录
+								this.setHistor(this.videoList[this.current].courseId, this.videoList[this.current]
+									.courseDetailsId)
+							}
+							this.$forceUpdate()
+						}
+					} else {
+						uni.showToast({
+							title: '加载失败',
+							icon: 'none'
+						})
+						setTimeout(() => {
+							uni.navigateBack();
+						}, 1000)
+					}
+				})
+			},
+			//计算正在观看哪个视频
+			comNumVideo() {
+				let courseDetailsId = this.videoList[this.current].courseDetailsId;
+				this.meunList.map((item, index) => {
+					if (item.courseDetailsId == courseDetailsId) { //找到了
+						this.num = item.num;
+					}
+				})
+			},
+			//插入观看记录
+			setHistor(courseId, courseDetailsId) {
+				let data = {
+					courseId: courseId,
+					courseDetailsId: courseDetailsId,
+					classify: 3,
+					type: 1
+				};
+				httpsRequest.postJson('/app/courseCollect/insertCourseCollect', data).then(res => {})
+			},
+		}
+	}
+</script>
+
+<style>
+	.detail {
+		width: 750rpx;
+		flex: 1;
+		background-color: #000;
+	}
+
+	.swipers {
+		width: 750rpx;
+		flex: 1;
+	}
+
+	.swipers-item {
+		width: 750rpx;
+		flex: 1;
+	}
+
+	.swipers-items {
+		width: 750rpx;
+		flex: 1;
+		position: relative;
+		background-color: #000;
+	}
+
+	.swipers-items-video {
+		width: 750rpx;
+		flex: 1;
+	}
+
+	.swipers-items-imgsbg {
+		width: 750rpx;
+		flex: 1;
+	}
+
+	.swipers-items-right {
+		position: absolute;
+		width: 60rpx;
+		top: 100rpx;
+		right: 20rpx;
+	}
+
+	.swipers-items-right-item {
+		width: 60rpx;
+		margin-bottom: 40rpx;
+	}
+
+	.swipers-items-right-item-img {
+		width: 60rpx;
+		height: 60rpx;
+	}
+
+	.swipers-items-right-item-imgs {
+		width: 60rpx;
+		height: 60rpx;
+	}
+
+	.swipers-items-right-item-txt {
+		width: 60rpx;
+	}
+
+	.swipers-items-right-item-txts {
+		width: 60rpx;
+		color: #ffffff;
+		font-size: 24rpx;
+		text-align: center;
+	}
+
+	.swipers-items-btom {
+		width: 750rpx;
+		position: absolute;
+		bottom: 100rpx;
+		align-items: center;
+	}
+
+	.swipers-items-btom-box {
+		width: 710rpx;
+	}
+
+	.swipers-items-btom-box-title {
+		width: 710rpx;
+	}
+
+	.swipers-items-btom-box-titles {
+		width: 710rpx;
+		color: #ffffff;
+		font-size: 30rpx;
+	}
+
+	.swipers-items-btom-box-content {
+		width: 710rpx;
+		margin-top: 10rpx;
+	}
+
+	.swipers-items-btom-box-contents {
+		width: 710rpx;
+		color: #ffffff;
+		font-size: 28rpx;
+	}
+
+	.swipers-items-btom-box-num {
+		width: 750rpx;
+		margin-top: 20rpx;
+	}
+
+	.swipers-items-btom-box-nums {
+		width: 710rpx;
+		color: #ffffff;
+		font-size: 30rpx;
+	}
+</style>

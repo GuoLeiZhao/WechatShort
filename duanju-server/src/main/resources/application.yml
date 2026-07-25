@@ -1,0 +1,240 @@
+
+# Tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+    connection-timeout: 5000ms
+  port: 8183
+  servlet:
+    context-path: /sqx_fast
+wx:
+  miniapp:
+    # 微信小程序/公众号凭证：更换账号只改这里即可（name 用于区分，勿改）
+    configs:
+      - name: app1          # 小程序（App 登录/播放器用这个）
+        appid: __WX_APPID__
+        secret: __WX_SECRET__
+        token: __WX_TOKEN__
+        aesKey: __WX_AESKEY__
+        appKey: __WX_APPKEY__        # 虚拟支付 appKey，不用可留空
+        msgDataFormat: JSON
+      - name: app1gzh       # 公众号
+        appid: __WX_OFA_APPID__
+        secret: __WX_OFA_SECRET__
+        appKey: __WX_OFA_APPKEY__
+        msgDataFormat: JSON
+      - name: app2        # 短剧平台（多租户，不用可删除本条）
+        appid: __WX_APP2_APPID__
+        secret: __WX_APP2_SECRET__
+        token: __WX_APP2_TOKEN__
+        aesKey: __WX_APP2_AESKEY__
+        appKey: __WX_APP2_APPKEY__
+        msgDataFormat: JSON
+
+douyin:
+  miniapp:
+    configs:
+      - app: app3
+        appid: __DOUYIN_APPID__
+        secret: __DOUYIN_SECRET__
+        salt: __SIGN_SALT__
+      - app: app1
+        appid: __DOUYIN_APPID_2__
+        secret: __DOUYIN_SECRET_2__
+        salt: __SIGN_SALT_2__
+      - app: app4
+        appid: __DOUYIN_APPID_3__
+        secret: __DOUYIN_SECRET_3__
+        salt: __SIGN_SALT_3__
+      - app: app5
+        appid: __DOUYIN_APPID_4__
+        secret: __DOUYIN_SECRET_4__
+        salt: __SIGN_SALT_2__
+      - app: app6
+        appid: __DOUYIN_APPID_5__
+        secret: __DOUYIN_SECRET_5__
+        salt: __SIGN_SALT_2__
+      - app: app7
+        appid: __DOUYIN_APPID_6__
+        secret: __DOUYIN_SECRET_6__
+        salt: __SIGN_SALT_2__
+      - app: app8
+        appid: __DOUYIN_APPID_7__
+        secret: __DOUYIN_SECRET_7__
+        salt: __SIGN_SALT_2__
+      - app: app9
+        appid: __DOUYIN_APPID_8__
+        secret: __DOUYIN_SECRET_8__
+        salt: __SIGN_SALT_2__
+      - app: app10
+        appid: __DOUYIN_APPID_9__
+        secret: __DOUYIN_SECRET_9__
+        salt: __SIGN_SALT_2__
+      - app: app11
+        appid: __DOUYIN_APPID_10__
+        secret: __DOUYIN_SECRET_10__
+        salt: __SIGN_SALT_2__
+      - app: app12
+        appid: __DOUYIN_APPID_11__
+        secret: __DOUYIN_SECRET_11__
+        salt: __SIGN_SALT_2__
+      - app: app13
+        appid: __DOUYIN_APPID_12__
+        secret: __DOUYIN_SECRET_12__
+        salt: __SIGN_SALT_2__
+      - app: app14
+        appid: __DOUYIN_APPID_13__
+        secret: __DOUYIN_SECRET_13__
+        salt: __SIGN_SALT_2__
+      - app: app15
+        appid: __DOUYIN_APPID_14__
+        secret: __DOUYIN_SECRET_14__
+        salt: __SIGN_SALT_2__
+      - app: app16
+        appid: __DOUYIN_APPID_15__
+        secret: __DOUYIN_SECRET_15__
+        salt: __SIGN_SALT_2__
+      - app: app17
+        appid: __DOUYIN_APPID_16__
+        secret: __DOUYIN_SECRET_16__
+        salt: __SIGN_SALT_2__
+      - app: app18
+        appid: __DOUYIN_APPID_17__
+        secret: __DOUYIN_SECRET_17__
+        salt: __SIGN_SALT_2__
+      - app: app19
+        appid: __DOUYIN_APPID_18__
+        secret: __DOUYIN_SECRET_18__
+        salt: __SIGN_SALT_2__
+      - app: app20
+        appid: __DOUYIN_APPID_19__
+        secret: __DOUYIN_SECRET_19__
+        salt: __SIGN_SALT_2__
+      - app: app21
+        appid: __DOUYIN_APPID_20__
+        secret: __DOUYIN_SECRET_20__
+        salt: __SIGN_SALT_2__
+
+bilibili:
+  miniapp:
+    configs:
+      - app: app22
+        appid: __BILI_APPID__
+        secret: __BILI_SECRET__
+      - app: app23
+        appid: __BILI_APPID_2__
+        secret: __BILI_SECRET_2__
+      - app: app9
+        appid: __BILI_APPID_3__
+        secret: __BILI_SECRET_3__
+      - app: app24
+        appid: __BILI_APPID_4__
+        secret: __BILI_SECRET_4__
+      - app: app25
+        appid: __BILI_APPID_5__
+        secret: __BILI_SECRET_5__
+
+
+spring:
+  profile:
+    active: dev
+  task:
+    execution:
+      pool:
+        allow-core-thread-timeout: true
+        max-size: 10
+        keep-alive: 60s
+        queue-capacity: 30
+        core-size: 2
+  main:
+    allow-circular-references: true
+  # 环境 dev|test|prod
+  profiles:
+    active: dev
+  # jackson时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-file-size: 10240MB
+      max-request-size: 10240MB
+      enabled: true
+  redis:
+    open: true  # 是否开启redis缓存  true开启   false关闭
+    timeout: 6000ms  # 连接超时时长（毫秒）
+    jedis:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5       # 连接池中的最小空闲连接
+  mvc:
+    throw-exception-if-no-handler-found: true
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      #Oracle需要打开注释
+      #validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.sqx.modules.*.entity
+  global-config:
+    #数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      logic-delete-value: -1
+      logic-not-delete-value: 0
+    banner: false
+  #原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+sqx:
+  redis:
+    open: false
+  shiro:
+    redis: false
+  # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
+  jwt:
+    # 加密秘钥
+    secret: __JWT_SECRET__
+    # token有效时长，7天，单位秒
+    expire: 604800
+    header: token

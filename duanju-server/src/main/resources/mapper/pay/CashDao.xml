@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sqx.modules.pay.dao.CashOutDao">
+
+    <select id="selectCashOutLimit3" resultType="com.sqx.modules.pay.entity.CashOut">
+        select * from cash_out where state=1 order by out_at desc limit 3
+    </select>
+
+    <select id="selectCashOutSum" resultType="Double">
+        select sum(money) from cash_out where state in (0,1) and user_id=#{userId} and date_format(create_at,'%Y-%m-%d') between #{startTime} and #{endTime}
+    </select>
+
+    <select id="sumMoney" resultType="Double">
+        select sum(money) from cash_out where
+        <if test="flag!=null and flag==1">
+            date_format(create_at,'%Y-%m-%d')=date_format(#{time},'%Y-%m-%d')
+        </if>
+        <if test="flag!=null and flag==2">
+            date_format(create_at,'%Y-%m')=date_format(#{time},'%Y-%m')
+        </if>
+        <if test="flag!=null and flag==3">
+            date_format(create_at,'%Y')=date_format(#{time},'%Y')
+        </if>
+    </select>
+
+    <select id="countMoney" resultType="Integer">
+        select count(*) from cash_out where
+        <if test="flag!=null and flag==1">
+            date_format(create_at,'%Y-%m-%d')=date_format(#{time},'%Y-%m-%d')
+        </if>
+        <if test="flag!=null and flag==2">
+            date_format(create_at,'%Y-%m')=date_format(#{time},'%Y-%m')
+        </if>
+        <if test="flag!=null and flag==3">
+            date_format(create_at,'%Y')=date_format(#{time},'%Y')
+        </if>
+    </select>
+
+    <select id="stayMoney" resultType="Integer">
+        select count(*) from cash_out where
+        <if test="flag!=null and flag==1">
+            date_format(create_at,'%Y-%m-%d')=date_format(#{time},'%Y-%m-%d')
+        </if>
+        <if test="flag!=null and flag==2">
+            date_format(create_at,'%Y-%m')=date_format(#{time},'%Y-%m')
+        </if>
+        <if test="flag!=null and flag==3">
+            date_format(create_at,'%Y')=date_format(#{time},'%Y')
+        </if>
+        and state=0
+    </select>
+
+    <select id="selectMayMoney" resultType="Double">
+     select money from user_money  where  user_id=#{userId}
+    </select>
+
+
+    <update id="updateMayMoney">
+     update user_money  set
+        <if test="type==1">
+            money=money+#{money}
+        </if>
+        <if test="type==2">
+            money=money-#{money}
+        </if>
+        where user_id=#{userId}
+    </update>
+
+
+</mapper>

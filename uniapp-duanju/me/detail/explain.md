@@ -1,0 +1,4 @@
+注意：由于app环境下ios跟Android存在差异，故需要分别适配
+detail.nvue文件默认为Android版本，打包则用这个
+如果打ios包，请把detailIOS.nvue改名为detail.nvue,原来的detail.nvue改为其他名称打包即可
+打安卓包同样操作即可

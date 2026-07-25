@@ -1,0 +1,61 @@
+<!--pages/theater/theater.wxml-->
+
+<view class="page">
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- 顶部标题栏 -->
+  <view class="header">
+    <view class="header-left">
+      <view class="logo-bar"></view>
+      <text class="logo-text">精选剧场</text>
+    </view>
+    <!-- <text class="header-tag">好剧推荐</text> -->
+  </view>
+
+  <!-- 剧目列表 -->
+  <scroll-view
+    class="scroll-area"
+    scroll-y
+    enhanced
+    show-scrollbar="{{false}}"
+    refresher-enabled
+    refresher-triggered="{{loading && page === 2}}"
+    bindrefresherrefresh="onPullDownRefresh"
+    bindscrolltolower="onReachBottom"
+    lower-threshold="100"
+  >
+    <view class="drama-list">
+      <view
+        class="drama-card"
+        wx:for="{{dramas}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onWatch"
+      >
+        <image class="card-poster" src="{{item.poster}}" mode="aspectFill" lazy-load></image>
+        <view class="card-body">
+          <view class="card-title">{{item.title}}</view>
+          <view class="card-desc" wx:if="{{item.description}}">{{item.description}}</view>
+          <view class="card-footer">
+            <view class="watch-btn">
+              <text class="watch-text">立即观看</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 底部状态 -->
+      <view class="list-footer">
+        <view class="footer-loading" wx:if="{{loading}}">
+          <view class="dot-wrap">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+          </view>
+        </view>
+        <text class="footer-end" wx:elif="{{!hasMore && dramas.length > 0}}">— 已经到底了 —</text>
+        <text class="footer-empty" wx:elif="{{!loading && dramas.length === 0}}">暂无剧目</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

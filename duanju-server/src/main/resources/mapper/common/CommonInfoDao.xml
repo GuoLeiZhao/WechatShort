@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sqx.modules.common.dao.CommonInfoDao">
+
+
+    <select id="findByCondition" resultType="com.sqx.modules.common.entity.CommonInfo">
+        select * from common_info where condition_from=#{condition}
+    </select>
+
+    <select id="findOne" resultType="com.sqx.modules.common.entity.CommonInfo">
+        select * from common_info where `type`=#{type}
+    </select>
+
+    <select id="findByConditionAndMax" resultType="com.sqx.modules.common.entity.CommonInfo">
+        select * from common_info where `max`=#{max} and condition_from=#{condition}
+    </select>
+
+    <select id="findByConditionAndValue" resultType="com.sqx.modules.common.entity.CommonInfo">
+        select * from common_info where `value`=#{value} and condition_from=#{condition}
+    </select>
+
+
+
+</mapper>

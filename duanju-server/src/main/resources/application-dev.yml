@@ -1,0 +1,11 @@
+spring:
+    datasource:
+        druid:
+            url: jdbc:mysql://127.0.0.1:3306/duanju_dev?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT&allowPublicKeyRetrieval=true
+            username: root
+            password: __DB_PASSWORD__
+    redis:
+        host: 127.0.0.1
+        database: 1
+        password: __DB_PASSWORD_2__
+        port: 6379

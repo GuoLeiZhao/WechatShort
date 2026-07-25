@@ -1,0 +1,11 @@
+spring:
+    datasource:
+        druid:
+            url: jdbc:mysql://__RDS_MYSQL_HOST__:3306/__DB_NAME__?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT
+            username: __DB_USERNAME_2__
+            password: __DB_PASSWORD_4__
+    redis:
+        host: __REDIS_HOST__
+        database: 2
+        password: __DB_PASSWORD_5__
+        port: 6379

@@ -1,0 +1,79 @@
+{
+	"bright": [{
+			"index": 0,
+			"pagePath": "pages/index/index",
+			"iconPath": "static/tabbar/bright/juchang.png",
+			"selectedIconPath": "static/tabbar/bright/juchang_.png",
+			"text": "剧场"
+		},
+		// #ifndef MP-WEIXIN
+		{
+			"index": 1,
+			"pagePath": "pages/video/video",
+			"iconPath": "static/tabbar/bright/tuijian.png",
+			"selectedIconPath": "static/tabbar/bright/tuijian_.png",
+			"text": "推荐"
+		},
+		// #endif
+		{
+			"index": 2,
+			"pagePath": "pages/chasingDrama/chasingDrama",
+			"iconPath": "static/tabbar/bright/zhuiju.png",
+			"selectedIconPath": "static/tabbar/bright/zhuiju_.png",
+			"text": "追剧"
+		},
+		{
+			"index": 3,
+			"pagePath": "pages/coupon/good",
+			"iconPath": "static/tabbar/bright/fuli.png",
+			"selectedIconPath": "static/tabbar/bright/fuli_.png",
+			"text": "福利"
+		},
+		{
+			"index": 4,
+			"pagePath": "pages/me/index",
+			"iconPath": "static/tabbar/bright/me.png",
+			"selectedIconPath": "static/tabbar/bright/me_.png",
+			"text": "我的"
+		}
+	],
+	"dark": [
+		{
+			"index": 0,
+			"pagePath": "pages/index/index",
+			"iconPath": "static/tabbar/dark/juchang.png",
+			"selectedIconPath": "static/tabbar/dark/juchang_.png",
+			"text": "剧场"
+		},
+		// #ifndef MP-WEIXIN
+		{
+			"index": 1,
+			"pagePath": "pages/video/video",
+			"iconPath": "static/tabbar/dark/tuijian.png",
+			"selectedIconPath": "static/tabbar/dark/tuijian_.png",
+			"text": "推荐"
+		},
+		// #endif
+		{
+			"index": 2,
+			"pagePath": "pages/chasingDrama/chasingDrama",
+			"iconPath": "static/tabbar/dark/zhuiju.png",
+			"selectedIconPath": "static/tabbar/dark/zhuiju_.png",
+			"text": "追剧"
+		},
+		{
+			"index": 3,
+			"pagePath": "pages/coupon/good",
+			"iconPath": "static/tabbar/dark/fuli.png",
+			"selectedIconPath": "static/tabbar/dark/fuli_.png",
+			"text": "福利"
+		},
+		{
+			"index": 4,
+			"pagePath": "pages/me/index",
+			"iconPath": "static/tabbar/dark/me.png",
+			"selectedIconPath": "static/tabbar/dark/me_.png",
+			"text": "我的"
+		}
+	]
+}

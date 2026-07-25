@@ -1,0 +1,54 @@
+
+### insert
+POST http://localhost:8183/sqx_fast/videoLandingPage
+Content-Type: application/json
+Cookie: token=f1e664be5cff7c255dd1541da9b13863
+Token: f1e664be5cff7c255dd1541da9b13863
+
+{
+  "groupName": "点众",
+  "type": "public",
+  "description": "叶文东本是豪门大少，却在十五年前被父亲赶出家门，任由他和母亲妹妹自生自灭，十五年后，他只想带着母亲妹妹过平静的生活，不料总有人欺他辱他，既然命运注定波涛汹涌，他选择以太子东之名强势崛起，横扫一切牛鬼蛇神，各路大佬争相拜服，终以天骄之姿立于世界之巅，睥睨天下！",
+  "url": "pages/videoInfoSub/videoInfoSub?bookId=41000100970&sid=1&channelId=34025&referral_id=15329789",
+  "score": 5,
+  "sort": 1,
+  "appId": "wxf57eec8f5c9a5887",
+  "name": "乱世巨星",
+  "pic": "https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/duanju-mp-index/img/pic/乱世巨星.jpg"
+}
+
+### update
+PUT http://localhost:8183/sqx_fast/videoLandingPage
+Content-Type: application/json
+
+{
+  "id": 1,
+  "groupName": "愈好",
+  "type": "public",
+  "description": "叶文东本是豪门大少，却在十五年前被父亲赶出家门，任由他和母亲妹妹自生自灭，十五年后，他只想带着母亲妹妹过平静的生活，不料总有人欺他辱他，既然命运注定波涛汹涌，他选择以太子东之名强势崛起，横扫一切牛鬼蛇神，各路大佬争相拜服，终以天骄之姿立于世界之巅，睥睨天下！",
+  "url": "pages/videoInfoSub/videoInfoSub?bookId=41000100970&sid=1&channelId=34025&referral_id=15329789",
+  "score": 5,
+  "sort": 1,
+  "appId": "wxf57eec8f5c9a5887",
+  "name": "乱世巨星",
+  "pic": "https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/duanju-mp-index/img/pic/乱世巨星.jpg"
+}
+
+### query
+GET http://localhost:8183/sqx_fast/app/videoLandingPage/selectPage
+
+<> 2023-12-24T183613.200.json
+
+### delete
+DELETE http://localhost:8183/sqx_fast/videoLandingPage/1
+Cookie: token=f1e664be5cff7c255dd1541da9b13863
+Token: f1e664be5cff7c255dd1541da9b13863
+
+### getById
+GET http://localhost:8183/sqx_fast/app/videoLandingPage/selectById/1
+Cookie: token=f1e664be5cff7c255dd1541da9b13863
+Token: f1e664be5cff7c255dd1541da9b13863
+
+
+
+

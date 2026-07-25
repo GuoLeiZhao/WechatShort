@@ -1,0 +1,55 @@
+
+
+### 获取企业标签
+POST http://localhost:8183/sqx_fast/enterpriseWechat/getCorpTagList
+Content-Type: application/json
+Cookie: token=40881f396ccf6fadb1adfd6d36afb5a1
+Token: 40881f396ccf6fadb1adfd6d36afb5a1
+
+{}
+
+### 创建企业群发
+POST http://localhost:8183/sqx_fast/enterpriseWechat/addMsgTemplate
+Content-Type: application/json
+Cookie: token=40881f396ccf6fadb1adfd6d36afb5a1
+Token: 40881f396ccf6fadb1adfd6d36afb5a1
+
+{}
+
+### 获取群发记录列表
+POST http://localhost:8183/sqx_fast/enterpriseWechat/getGroupMsgListV2
+Content-Type: application/json
+Cookie: token=40881f396ccf6fadb1adfd6d36afb5a1
+Token: 40881f396ccf6fadb1adfd6d36afb5a1
+
+{}
+
+### 上传临时素材
+POST http://localhost:8183/sqx_fast/enterpriseWechat/tempMediaUpload/{uploadMediaType}
+Content-Type: application/json
+Cookie: token=40881f396ccf6fadb1adfd6d36afb5a1
+Token: 40881f396ccf6fadb1adfd6d36afb5a1
+
+{}
+
+### 获取临时素材
+POST http://localhost:8183/sqx_fast/enterpriseWechat/getTempMedia/{mediaId}
+Content-Type: application/json
+Cookie: token=40881f396ccf6fadb1adfd6d36afb5a1
+Token: 40881f396ccf6fadb1adfd6d36afb5a1
+
+{}
+
+###
+POST https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token=accesstoken001&type=file
+Content-Type: multipart/form-data; boundary=-------------------------acebdf13572468
+Content-Length: 220
+
+---------------------------acebdf13572468
+Content-Disposition: form-data; name="media";filename="wework.txt"; filelength=6
+Content-Type: application/octet-stream
+
+mytext
+---------------------------acebdf13572468--
+
+

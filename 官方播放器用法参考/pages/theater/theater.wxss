@@ -1,0 +1,165 @@
+/* pages/theater/theater.wxss */
+page {
+  background-color: #0D0D0D;
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-bar {
+  background-color: #0D0D0D;
+}
+
+/* ---- 顶部标题栏 ---- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 40rpx 32rpx;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.logo-bar {
+  width: 8rpx;
+  height: 48rpx;
+  border-radius: 4rpx;
+  background: linear-gradient(180deg, #F0A500, #C87800);
+}
+
+.logo-text {
+  font-size: 42rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 4rpx;
+}
+
+.header-tag {
+  font-size: 24rpx;
+  color: #F0A500;
+  border: 1rpx solid rgba(240, 165, 0, 0.4);
+  border-radius: 20rpx;
+  padding: 6rpx 20rpx;
+  letter-spacing: 2rpx;
+}
+
+/* ---- 列表区域 ---- */
+.scroll-area {
+  flex: 1;
+}
+
+.drama-list {
+  padding: 0 30rpx 60rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+/* ---- 单张剧目卡片 ---- */
+.drama-card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  background-color: #181818;
+  border-radius: 20rpx;
+  overflow: hidden;
+  border: 1rpx solid #272727;
+}
+
+.card-poster {
+  width: 200rpx;
+  height: 268rpx;
+  flex-shrink: 0;
+}
+
+.card-body {
+  flex: 1;
+  padding: 28rpx 28rpx 28rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.4;
+  margin-bottom: 14rpx;
+}
+
+.card-desc {
+  font-size: 24rpx;
+  color: #777777;
+  line-height: 1.6;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-footer {
+  margin-top: 20rpx;
+}
+
+.watch-btn {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #F0A500, #C87800);
+  border-radius: 40rpx;
+  padding: 12rpx 32rpx;
+}
+
+.watch-text {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: 2rpx;
+}
+
+/* ---- 底部状态 ---- */
+.list-footer {
+  padding: 40rpx 0 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80rpx;
+}
+
+.footer-end,
+.footer-empty {
+  font-size: 24rpx;
+  color: #3A3A3A;
+  letter-spacing: 2rpx;
+}
+
+/* 三点 loading 动画 */
+.dot-wrap {
+  display: flex;
+  gap: 12rpx;
+  align-items: center;
+}
+
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background-color: #F0A500;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%            { transform: scale(1);   opacity: 1; }
+}

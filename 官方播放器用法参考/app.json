@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/theater/theater",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "短剧小程序",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#555555",
+    "selectedColor": "#F0A500",
+    "backgroundColor": "#111111",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/theater/theater",
+        "text": "剧场",
+        "iconPath": "images/theater.png",
+        "selectedIconPath": "images/theater-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/profile-active.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "open-area-left-side": "/components/open-area-left-side/open-area-left-side"
+  },
+  "plugins": {
+    "playlet-plugin": {
+      "version": "latest",
+      "provider": "wx94a6522b1d640c3b",
+      "genericsImplementation": {
+        "playlet": {
+          "open-area-left-side": "/components/open-area-left-side/open-area-left-side"
+        }
+      }
+    }
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

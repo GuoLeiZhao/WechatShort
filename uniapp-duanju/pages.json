@@ -1,0 +1,769 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "剧场",
+				"enablePullDownRefresh": true,
+				"navigationBarBackgroundColor": "#FFFFFF"
+
+			}
+		},
+//		{
+//			"path": "pages/index/search/index",
+//			"style": {
+//				// #ifdef H5
+//				"navigationStyle": "custom",
+//				// #endif
+//				"navigationBarTitleText": "搜索",
+//				"navigationBarBackgroundColor": "#FFFFFF",
+//				"enablePullDownRefresh": true
+//			}
+//		},
+		{
+			"path": "pages/index/course/courseList",
+			"style": {
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"navigationBarTitleText": "资源列表",
+				"enablePullDownRefresh": true,
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
+			"path": "pages/index/course/courseDet",
+			"style": {
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"navigationBarTitleText": "资源详情",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+//		{
+//			"path": "pages/index/course/orderDet",
+//			"style": {
+//				// #ifdef H5
+//				"navigationStyle": "custom",
+//				// #endif
+//				"navigationBarTitleText": "确认订单",
+//				"navigationBarBackgroundColor": "#FFFFFF"
+//			}
+//		},
+//		{
+//			"path": "pages/index/webView",
+//			"style": {
+//				// #ifdef H5
+//				"navigationStyle": "custom",
+//				// #endif
+//				"navigationBarTitleText": "网页",
+//				"navigationBarBackgroundColor": "#FFFFFF"
+//			}
+//		},
+//
+//
+//		{
+//			"path": "pages/learn/index",
+//			"style": {
+//				// #ifdef H5
+//				"navigationStyle": "custom",
+//				// #endif
+//				"navigationBarTitleText": "学习",
+//				"enablePullDownRefresh": true,
+//				"app-plus": {
+//					"titleNView": false, //禁用原生导航栏
+//					"bounce": "none",
+//					"scrollIndicator": "none"
+//				}
+//			}
+//		},
+		{
+			"path": "pages/me/index",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#768EFF",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/me/userinfo",
+			"style": {
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"navigationBarTitleText": "个人资料",
+				"h5": {
+					"titleNView": {
+						"backgroundColor": "#FFFFFF"
+					}
+				}
+			}
+		},
+
+
+		{
+			"path": "pages/me/vip/index",
+			"style": {
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"navigationBarTitleText": "会员中心",
+				"h5": {
+					"titleNView": {
+						"backgroundColor": "#FFFFFF"
+					}
+				}
+			}
+		},
+		// {
+		// 	"path": "pages/me/erweimaRegister",
+		// 	"style": {
+		// 		// #ifdef H5
+		// 		"navigationStyle": "custom",
+		// 		// #endif
+		// 		"navigationBarTextStyle": "black",
+		// 		"navigationBarTitleText": "关注公众号",
+		// 		"enablePullDownRefresh": false,
+		// 		"app-plus": {
+		// 			"bounce": "none",
+		// 			"titleNView": true
+		// 		}
+		// 	}
+		// },
+
+		// {
+		// 	"path": "pages/login/login",
+		// 	"style": {
+		// 		// #ifdef H5
+		// 		"navigationStyle": "custom",
+		// 		// #endif
+		// 		"navigationBarTitleText": "登录",
+		// 		"h5": {
+		// 			"titleNView": {
+		// 				"backgroundColor": "#FFFFFF"
+		// 			}
+		// 		}
+		// 	}
+		// }, 
+		// {
+		// 	"path": "pages/login/loginPhone",
+		// 	"style": {
+		// 		// #ifdef H5
+		// 		"navigationStyle": "custom",
+		// 		// #endif
+		// 		"navigationBarTitleText": "登录",
+		// 		"h5": {
+		// 			"titleNView": {
+		// 				"backgroundColor": "#FFFFFF"
+		// 			}
+		// 		}
+		// 	}
+		// }, 
+		{
+			"path": "pages/login/bind",
+			"style": {
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"navigationBarTitleText": "绑定手机号",
+				"h5": {
+					"titleNView": {
+						"backgroundColor": "#FFFFFF"
+					}
+				}
+			}
+		},
+		// {
+		// 	"path": "pages/login/register",
+		// 	"style": {
+		// 		// #ifdef H5
+		// 		"navigationStyle": "custom",
+		// 		// #endif
+		// 		"navigationBarTitleText": "注册",
+		// 		"h5": {
+		// 			"titleNView": {
+		// 				"backgroundColor": "#FFFFFF"
+		// 			}
+		// 		}
+		// 	}
+		// },
+		// {
+		// 	"path": "pages/login/forgetPwd",
+		// 	"style": {
+		// 		// #ifdef H5
+		// 		"navigationStyle": "custom",
+		// 		// #endif
+		// 		"navigationBarTitleText": "重置密码",
+		// 		"h5": {
+		// 			"titleNView": {
+		// 				"backgroundColor": "#FFFFFF"
+		// 			}
+		// 		}
+		// 	}
+		// }, 
+		// {
+		// 	"path": "pages/chasingDrama/chasingDrama",
+		// 	"style": {
+		// 		"navigationStyle": "custom",
+		// 		"navigationBarTitleText": "追剧",
+		// 		"enablePullDownRefresh": false,
+		// 		"mp-weixin": {
+		// 			"usingComponents": {
+		// 				"recent-list": "plugin://playlet-plugin/recent-list",
+		// 				"fav-list": "plugin://playlet-plugin/fav-list"
+		// 			}
+		// 		}
+		// 	}
+
+		// },
+		// #ifndef MP-WEIXIN
+		{
+			"path": "pages/video/video",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "推荐",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		// #endif
+		// {
+		// 	"path": "pages/coupon/coupon",
+		// 	"style": {
+		// 		// #ifdef H5
+		// 		"navigationStyle": "custom",
+		// 		// #endif
+		// 		"enablePullDownRefresh": false,
+		// 		"onReachBottomDistance": 50,
+		// 		"navigationBarTitleText": "福利"
+		// 	}
+		// },
+		{
+			"path": "pages/coupon/goodDetail",
+			"style": {
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"enablePullDownRefresh": false,
+				"navigationBarTitleText": ""
+			}
+		},
+		// {
+		// 	"path": "pages/coupon/success",
+		// 	"style": {
+		// 		// #ifdef H5
+		// 		"navigationStyle": "custom",
+		// 		// #endif
+		// 		"navigationBarTitleText": "兑换成功",
+		// 		"enablePullDownRefresh": false
+		// 	}
+		// },
+		// {
+		// 	"path": "pages/coupon/good",
+		// 	"style": {
+		// 		"navigationStyle": "custom",
+		// 		"navigationBarTitleText": "商城",
+		// 		"enablePullDownRefresh": false
+		// 	}
+		// },
+		{
+			"path": "components/open-area-left/open-area-left",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "components/open-area-left-side/open-area-left-side",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}
+	],
+	"subPackages": [{
+		"root": "me",
+		"pages": [{
+				"path": "feedback/index",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "意见反馈",
+					"navigationBarBackgroundColor": "#FFFFFF"
+				}
+			}, {
+				"path": "detail/detailMPWechat",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false,
+					"navigationStyle": "custom",
+					"app-plus": {
+						"bounce": "none"
+					},
+					"mp-weixin": {
+						"usingComponents": {
+							//							"charge-dialog": "/components/charge-dialog/charge-dialog"
+						}
+					}
+				}
+			},
+			{
+				"path": "feedbackIndex/feedbackIndex",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "帮助中心",
+					"enablePullDownRefresh": false,
+					"navigationBarBackgroundColor": "#FFFFFF"
+				}
+			}, {
+				"path": "helpDetail/helpDetail",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "帮助详情",
+					"enablePullDownRefresh": false,
+					"navigationBarBackgroundColor": "#FFFFFF"
+				}
+			}, {
+				"path": "message/index",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "消息中心",
+					"navigationStyle": "custom", // 隐藏系统导航栏
+					"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "order/index",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "我的订单",
+					"enablePullDownRefresh": true,
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "course/index",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "我的课程",
+					"enablePullDownRefresh": true,
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "invite/index",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "分享好友",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "invite/inviteDet",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "我的团队",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "invite/cashDetail",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "申请提现",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "invite/zhifubao",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "提现账号",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "invite/cashList",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "提现记录",
+					"enablePullDownRefresh": true,
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "invite/moneyList",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "钱包明细",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "integral/index",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "我的积分",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "collect/index",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "我的收藏",
+					"enablePullDownRefresh": true,
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "setting/index",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "设置",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			}, {
+				"path": "setting/kefu",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "客服",
+					"navigationBarBackgroundColor": "#FFFFFF"
+				}
+			},
+			{
+				"path": "integral/inviteDet",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "我的钱包",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "setting/xieyi",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "用户协议",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "setting/mimi",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "隐私协议",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			},
+			{
+				"path": "setting/bind",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "换绑手机号",
+					"h5": {
+						"titleNView": {
+							"backgroundColor": "#FFFFFF"
+						}
+					}
+				}
+			}, {
+				"path": "detail/detail",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false,
+					"navigationStyle": "custom",
+					"app-plus": {
+						"bounce": "none"
+					}
+				}
+			}, {
+				"path": "wallet/wallet",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "余额充值",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "wallet/mingxi",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "余额明细",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "jilu/jilu",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "最近观看",
+					"enablePullDownRefresh": true,
+					"mp-weixin": {
+						"usingComponents": {
+							"recent-list": "plugin://playlet-plugin/recent-list"
+						}
+					}
+				}
+
+			}, {
+				"path": "jilu/histor",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "追剧记录",
+					"enablePullDownRefresh": true,
+					"mp-weixin": {
+						"usingComponents": {
+							"fav-list": "plugin://playlet-plugin/fav-list"
+						}
+					}
+				}
+			}, {
+				"path": "jifen/jifen",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "我的积分",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "jifen/duihuan",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "积分兑换",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "jilu/myLove",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "我的喜欢",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "payOrder/payOrder",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "下单",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "setting/logOff",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "注销账号",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "setting/offXieyi",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "用户注销协议",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "juqing/juqing",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "剧情介绍",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "wallpaper/wallpaper",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "壁纸",
+					"enablePullDownRefresh": true
+				}
+
+			}
+		]
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "#000000",
+		"navigationBarTitleText": "短剧",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#3333337f",
+		"selectedColor": "#333333ff",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabbar/bright/juchang.png",
+				"selectedIconPath": "static/tabbar/bright/juchang_.png",
+				"text": "剧场"
+			},
+			// #ifndef MP-WEIXIN
+			{
+				"pagePath": "pages/video/video",
+				"iconPath": "static/tabbar/bright/tuijian.png",
+				"selectedIconPath": "static/tabbar/bright/tuijian_.png",
+				"text": "推荐"
+			},
+			// #endif
+			// {
+			// 	"pagePath": "pages/chasingDrama/chasingDrama",
+			// 	"iconPath": "static/tabbar/bright/zhuiju.png",
+			// 	"selectedIconPath": "static/tabbar/bright/zhuiju_.png",
+			// 	"text": "追剧"
+			// },
+			// {
+			// 	"pagePath": "pages/coupon/good",
+			// 	"iconPath": "static/tabbar/bright/fuli.png",
+			// 	"selectedIconPath": "static/tabbar/bright/fuli_.png",
+			// 	"text": "福利"
+			// },
+			{
+				"pagePath": "pages/me/index",
+				"iconPath": "static/tabbar/bright/me.png",
+				"selectedIconPath": "static/tabbar/bright/me_.png",
+				"text": "我的"
+			}
+		]
+	},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
+	}
+}

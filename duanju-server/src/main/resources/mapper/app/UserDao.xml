@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sqx.modules.app.dao.UserDao">
+
+
+    <select id="selectUserPage" resultType="com.sqx.modules.app.entity.UserEntity">
+        select u.*,v.is_vip as member,v.end_time as endTime from tb_user u
+        left join user_vip v on v.user_id=u.user_id
+        where 1=1
+        <if test="search!=null and search!=''">
+            and (u.user_id=#{search} or u.phone = #{search} or u.user_name =#{search} )
+        </if>
+        <if test="userName!=null and userName!=''">
+            and u.user_name like concat('%',#{userName},'%')
+        </if>
+        <if test="sex!=null and sex!=0">
+            and u.sex=#{sex}
+        </if>
+        <if test="platform!=null and platform!=''">
+            and u.platform=#{platform}
+        </if>
+        <if test="sysPhone!=null and sysPhone!=''">
+            and u.sys_phone=#{sysPhone}
+        </if>
+        <if test="status!=null and status!=0">
+            and u.status=#{status}
+        </if>
+        <if test="member!=null and member!=-1">
+            and v.is_vip=#{member}
+        </if>
+        <if test="inviterCode!=null and inviterCode!=''">
+            and u.inviter_code=#{inviterCode}
+        </if>
+        order by create_time desc
+    </select>
+    <select id="queryInviterCount" resultType="int">
+        select count(*) from tb_user
+        where inviter_code=#{inviterCode}
+     </select>
+    <select id="queryUserCount" resultType="int">
+        select count(*)from tb_user where 1=1
+        <if test="type==1">
+            and date_format(create_time,'%Y-%m-%d')=date_format(#{date},'%Y-%m-%d')
+        </if>
+        <if test="type==2">
+            and date_format(create_time,'%Y-%m')=date_format(#{date},'%Y-%m')
+        </if>
+        <if test="type==3">
+            and date_format(create_time,'%Y')=date_format(#{date},'%Y')
+        </if>
+        <if test="platform!=null">
+            and platform=#{platform}
+        </if>
+    </select>
+    <select id="queryPayMoney" resultType="Double">
+        select sum(money) from pay_details where 1=1 and state=1
+        <if test="type==1">
+            and date_format(create_time,'%Y-%m-%d')=date_format(#{date},'%Y-%m-%d')
+        </if>
+        <if test="type==2">
+            and date_format(create_time,'%Y-%m')=date_format(#{date},'%Y-%m')
+        </if>
+        <if test="type==3">
+            and date_format(create_time,'%Y')=date_format(#{date},'%Y')
+        </if>
+    </select>
+
+     <select id="queryCourseOrder" resultType="com.sqx.modules.app.response.CourseOrderResponse">
+        select * from (
+         select c.course_id  as courseId,sum(o.pay_money) as 'coursemoney' ,count(*) as 'coursenum',any_value(c.title) as 'coursename'
+         from orders o
+         left join course c on o.course_id=c.course_id
+         where o.status = 1 and o.orders_type = 3 and o.course_id is not null
+         <if test="type==1">
+             and date_format(o.create_time,'%Y-%m-%d')=date_format(#{date},'%Y-%m-%d')
+         </if>
+         <if test="type==2">
+             and date_format(o.create_time,'%Y-%m')=date_format(#{date},'%Y-%m')
+         </if>
+         <if test="type==3">
+             and date_format(o.create_time,'%Y')=date_format(#{date},'%Y')
+         </if>
+     group by c.course_id
+         ) a
+     order by a.coursemoney desc
+     </select>
+     <select id="userMessage" resultType="int">
+       select count(*) from tb_user t ,user_vip v where t.user_id=v.user_id and is_vip=2
+         <if test="type==1">
+             and date_format(t.create_time,'%Y-%m-%d')=date_format(#{date},'%Y-%m-%d')
+         </if>
+         <if test="type==2">
+             and date_format(t.create_time,'%Y-%m')=date_format(#{date},'%Y-%m')
+         </if>
+         <if test="type==3">
+             and date_format(t.create_time,'%Y')=date_format(#{date},'%Y')
+         </if>
+     </select>
+
+
+    <insert id="insertUser" parameterType="com.sqx.modules.app.entity.UserEntity" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO tb_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != userName and '' != userName">
+                user_name,
+            </if>
+            <if test="null != phone and '' != phone">
+                phone,
+            </if>
+            <if test="null != avatar and '' != avatar">
+                avatar,
+            </if>
+            <if test="null != sex and '' != sex">
+                sex,
+            </if>
+            <if test="null != openId and '' != openId">
+                open_id,
+            </if>
+            <if test="null != wxOpenId and '' != wxOpenId">
+                wx_open_id,
+            </if>
+            <if test="null != password and '' != password">
+                password,
+            </if>
+            <if test="null != createTime and '' != createTime">
+                create_time,
+            </if>
+            <if test="null != updateTime and '' != updateTime">
+                update_time,
+            </if>
+            <if test="null != appleId and '' != appleId">
+                apple_id,
+            </if>
+            <if test="null != sysPhone and '' != sysPhone">
+                sys_phone,
+            </if>
+            <if test="null != status and '' != status">
+                status,
+            </if>
+            <if test="null != platform and '' != platform">
+                platform,
+            </if>
+            <if test="null != jifen and '' != jifen">
+                jifen,
+            </if>
+            <if test="null != invitationCode and '' != invitationCode">
+                invitation_code,
+            </if>
+            <if test="null != inviterCode and '' != inviterCode">
+                inviter_code,
+            </if>
+            <if test="null != clientid and '' != clientid">
+                clientid,
+            </if>
+            <if test="null != zhiFuBaoName and '' != zhiFuBaoName">
+                zhi_fu_bao_name,
+            </if>
+            <if test="null != zhiFuBao and '' != zhiFuBao">
+                zhi_fu_bao,
+            </if>
+            <if test="null != wxId and '' != wxId">
+                wx_id,
+            </if>
+            <if test="null != wxUnionId and '' != wxUnionId">
+                wx_union_id
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != userName and '' != userName">
+                #{userName},
+            </if>
+            <if test="null != phone and '' != phone">
+                #{phone},
+            </if>
+            <if test="null != avatar and '' != avatar">
+                #{avatar},
+            </if>
+            <if test="null != sex and '' != sex">
+                #{sex},
+            </if>
+            <if test="null != openId and '' != openId">
+                #{openId},
+            </if>
+            <if test="null != wxOpenId and '' != wxOpenId">
+                #{wxOpenId},
+            </if>
+            <if test="null != password and '' != password">
+                #{password},
+            </if>
+            <if test="null != createTime and '' != createTime">
+                #{createTime},
+            </if>
+            <if test="null != updateTime and '' != updateTime">
+                #{updateTime},
+            </if>
+            <if test="null != appleId and '' != appleId">
+                #{appleId},
+            </if>
+            <if test="null != sysPhone and '' != sysPhone">
+                #{sysPhone},
+            </if>
+            <if test="null != status and '' != status">
+                #{status},
+            </if>
+            <if test="null != platform and '' != platform">
+                #{platform},
+            </if>
+            <if test="null != jifen and '' != jifen">
+                #{jifen},
+            </if>
+            <if test="null != invitationCode and '' != invitationCode">
+                #{invitationCode},
+            </if>
+            <if test="null != inviterCode and '' != inviterCode">
+                #{inviterCode},
+            </if>
+            <if test="null != clientid and '' != clientid">
+                #{clientid},
+            </if>
+            <if test="null != zhiFuBaoName and '' != zhiFuBaoName">
+                #{zhiFuBaoName},
+            </if>
+            <if test="null != zhiFuBao and '' != zhiFuBao">
+                #{zhiFuBao},
+            </if>
+            <if test="null != wxId and '' != wxId">
+                #{wxId},
+            </if>
+            <if test="null != wxUnionId and '' != wxUnionId">
+                #{wxUnionId}
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="selectInviteUserList" resultType="com.sqx.modules.app.entity.UserEntity">
+        select *,(select count(*) from tb_user u1 where u1.inviter_code=u.invitation_code) as counts,
+               (select ifnull(sum(money),0.00) from invite i where i.user_id=u.user_id) as money
+               from tb_user u
+        where 1=1
+        <if test="userName!=null and userName!=''">
+            and user_name like concat('%',#{userName},'%')
+        </if>
+        <if test="phone!=null and phone!=''">
+            and phone like concat('%',#{phone},'%')
+        </if>
+        order by money desc,counts desc
+    </select>
+
+    <select id="selectUserOnLineCount" resultType="Integer">
+        select count(*) from tb_user where now()&lt;=DATE_ADD(on_line_time, INTERVAL 10 MINUTE )
+    </select>
+
+    <select id="selectUserDropList" resultType="com.sqx.common.base.BaseDropList">
+        select id as value, name as label from tb_user
+    </select>
+
+    <select id="selectUserList" resultType="com.sqx.modules.app.entity.UserEntity">
+        select * from tb_user where user_id in
+        <foreach item="id" collection="list"  open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

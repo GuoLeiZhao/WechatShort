@@ -1,0 +1,51 @@
+<!--pages/profile/profile.wxml-->
+<view class="page">
+
+  <!-- 顶部光晕装饰 -->
+  <view class="glow-circle"></view>
+
+  <!-- 用户信息区 -->
+  <view class="user-area">
+    <view class="avatar-ring">
+      <view class="avatar">
+        <text class="avatar-char">剧</text>
+      </view>
+    </view>
+    <text class="username">{{userInfo.nickname}}</text>
+    <text class="user-id">ID · {{userInfo.userId}}</text>
+
+    <!-- 数据统计 -->
+    <view class="stats-row">
+      <view class="stat-pill" data-type="likes" bindtap="onStatTap">
+        <text class="stat-num">{{stats.likes}}</text>
+        <text class="stat-lbl">喜欢</text>
+      </view>
+      <view class="stat-pill" data-type="following" bindtap="onStatTap">
+        <text class="stat-num">{{stats.following}}</text>
+        <text class="stat-lbl">追剧</text>
+      </view>
+      <view class="stat-pill" data-type="points" bindtap="onStatTap">
+        <text class="stat-num">{{stats.points}}</text>
+        <text class="stat-lbl">积分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-block">
+    <view
+      class="menu-row"
+      wx:for="{{menuList}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="onMenuTap"
+    >
+      <view class="menu-icon-box">
+        <image class="menu-icon" src="{{item.icon}}" mode="aspectFit"></image>
+      </view>
+      <text class="menu-label">{{item.title}}</text>
+      <text class="menu-chevron">›</text>
+    </view>
+  </view>
+
+</view>

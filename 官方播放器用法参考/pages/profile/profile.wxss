@@ -1,0 +1,157 @@
+/* pages/profile/profile.wxss */
+page {
+  background-color: #0D0D0D;
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---- 顶部金色光晕 ---- */
+.glow-circle {
+  position: absolute;
+  top: -160rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600rpx;
+  height: 600rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 165, 0, 0.14) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* ---- 用户信息区 ---- */
+.user-area {
+  width: 100%;
+  padding: 100rpx 40rpx 56rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-ring {
+  width: 164rpx;
+  height: 164rpx;
+  border-radius: 50%;
+  padding: 4rpx;
+  background: linear-gradient(135deg, #F0A500, #C87800);
+  margin-bottom: 28rpx;
+  box-sizing: border-box;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #1A1A1A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-char {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #F0A500;
+}
+
+.username {
+  font-size: 42rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 2rpx;
+  margin-bottom: 12rpx;
+}
+
+.user-id {
+  font-size: 24rpx;
+  color: #4A4A4A;
+  margin-bottom: 56rpx;
+}
+
+/* ---- 统计胶囊 ---- */
+.stats-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.stat-pill {
+  background-color: #1A1A1A;
+  border: 1rpx solid #262626;
+  border-radius: 20rpx;
+  padding: 28rpx 44rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.stat-num {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #F0A500;
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 22rpx;
+  color: #555555;
+}
+
+/* ---- 功能菜单 ---- */
+.menu-block {
+  width: 690rpx;
+  background-color: #181818;
+  border-radius: 24rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+  border: 1rpx solid #252525;
+}
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 36rpx;
+  border-bottom: 1rpx solid #222222;
+}
+
+.menu-row:last-child {
+  border-bottom: none;
+}
+
+.menu-icon-box {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 16rpx;
+  background-color: #232323;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.menu-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.menu-label {
+  flex: 1;
+  font-size: 30rpx;
+  color: #DDDDDD;
+}
+
+.menu-chevron {
+  font-size: 44rpx;
+  color: #3A3A3A;
+  line-height: 1;
+}

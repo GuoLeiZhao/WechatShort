@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sqx.modules.app.dao.UserMoneyDetailsDao">
+    <select id="monthIncome" resultType="Double">
+        select sum(money)  from user_money_details where user_id=#{userId} and classify=4 and type=2 and state=2 and   date_format(create_time,'%Y-%m')=date_format(#{date},'%Y-%m')
+    </select>
+</mapper>
