@@ -4,7 +4,7 @@
 module.exports = {
 	//微信的appId
 	getWxAppid() {
-		return '__WX_APPID__'
+		return 'wxe54afd8d50e75b06'
 	},
 	//全局邀请码
 	getInvitation() {

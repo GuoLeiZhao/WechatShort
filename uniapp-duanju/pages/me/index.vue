@@ -192,7 +192,7 @@
 		methods: {
 			test(){
 				uni.navigateTo({
-					url: 'plugin-private://wx94a6522b1d640c3b/pages/playlet/playlet?dramaId=__DEMO_MEDIA_ID__&srcAppid=__WX_APPID__'
+					url: 'plugin-private://wx94a6522b1d640c3b/pages/playlet/playlet?dramaId=100056&srcAppid=wxe54afd8d50e75b06'
 				});
 			},
 			moneyClick() {
