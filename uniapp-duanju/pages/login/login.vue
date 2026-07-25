@@ -6,7 +6,7 @@
 			<view>
 				<view class="headers">
 					<image
-						src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png"
+						src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png"
 						style="border-radius: 50%;"></image>
 				</view>
 				<view class="content">
@@ -30,7 +30,7 @@
 
 		<view style="text-align: center;">
 			<image style="width: 120upx;height: 120upx;margin-top: 140upx;border-radius:20upx"
-				src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png">
+				src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png">
 			</image>
 			<!-- <button class='confirm-btn' @click="register">手机号登录</button>
 			<button v-if="isopen"  class='confirm-btn' @click="bingwx">一键授权登陆</button> -->
@@ -321,7 +321,7 @@
 												uni.setStorageSync('userName', res.user.userName)
 												uni.setStorageSync('avatar', res.user.avatar ? res.user
 													.avatar :
-													'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'
+													'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'
 													)
 												uni.setStorageSync('phone', res.user.phone)
 												uni.setStorageSync('invitationCode', res.user
@@ -385,7 +385,7 @@
 
 				// #ifdef H5
 				this.GyManager.oneLogin({
-					logo: "https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/%E7%89%A7%E7%9B%B4%E7%9C%8B%E5%89%A7%E5%8A%A9%E6%89%8B-logo.jpg",
+					logo: "https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/%E7%89%A7%E7%9B%B4%E7%9C%8B%E5%89%A7%E5%8A%A9%E6%89%8B-logo.jpg",
 					onTokenSuccess: function(res) {
 						console.log('success!!!!!', res)
 						// data 结构： { gyuid:'abcd', phone:'16666666666', accesscode: 'abc',other...}。
@@ -400,7 +400,7 @@
 									uni.setStorageSync('userId', result.user.userId)
 									uni.setStorageSync('userName', result.user.userName)
 									uni.setStorageSync('avatar', result.user.avatar ? result.user.avatar :
-										'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'
+										'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'
 										)
 									uni.setStorageSync('phone', result.user.phone)
 									uni.setStorageSync('invitationCode', result.user.invitationCode)
@@ -676,7 +676,7 @@
 							uni.setStorageSync('userId', res.user.userId)
 							uni.setStorageSync('userName', res.user.userName)
 							uni.setStorageSync('avatar', res.user.avatar ? res.user.avatar :
-								'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'
+								'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'
 								)
 							uni.setStorageSync('phone', res.user.phone)
 							uni.setStorageSync('invitationCode', res.user.invitationCode)

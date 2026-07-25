@@ -34,7 +34,7 @@
 						</view>
 						<view class="swipers-items-right-item" @click="share()">
 							<view class="swipers-items-right-item-img">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -45,7 +45,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-if="item.isCollect == 0">
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -56,7 +56,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-else>
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -112,7 +112,7 @@
 						</view>
 						<view class="swipers-items-right-item" @click="share()">
 							<view class="swipers-items-right-item-img">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -123,7 +123,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-if="item.isCollect == 0">
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -134,7 +134,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-else>
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">

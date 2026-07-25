@@ -24,7 +24,7 @@
 		</view>
 		<!-- <view class="page-box" v-if="!orderList.length" >
 			<view class="centre">
-				<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/learn/none.png" mode=""></image>
+				<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/learn/none.png" mode=""></image>
 				<view class="tips">
 					暂无资源
 				</view>

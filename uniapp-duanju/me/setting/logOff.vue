@@ -87,7 +87,7 @@
 			},
 			// 退出登录
 			loginOut() {
-				this.avatar = 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/head.png';
+				this.avatar = 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/head.png';
 				this.userName = '';
 				// this.isLogin = false
 				// 清除本地数据

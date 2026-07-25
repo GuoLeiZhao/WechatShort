@@ -5,7 +5,7 @@
 		<view class="mp_wxBox">
 			<view>
 				<view class="headers">
-					<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png" style="border-radius: 50%;"></image>
+					<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png" style="border-radius: 50%;"></image>
 				</view>
 				<view class="content">
 					<view>申请获取以下权限</view>
@@ -308,7 +308,7 @@
 							uni.setStorageSync('userId', res.user.userId)
 							uni.setStorageSync('userName', res.user.userName)
 							uni.setStorageSync('avatar', res.user.avatar ? res.user.avatar :
-								'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png')
+								'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png')
 							uni.setStorageSync('phone', res.user.phone)
 							uni.setStorageSync('invitationCode', res.user.invitationCode)
 							uni.setStorageSync('sex', res.user.sex)

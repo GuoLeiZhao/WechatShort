@@ -178,7 +178,7 @@
     },
     "h5" : {
         "title" : "短剧",
-        "domain" : "https://your-api-domain.com",
+        "domain" : "https://wefly.work",
         "router" : {
             "mode" : "history"
         },

@@ -58,11 +58,11 @@
 		onLoad(option) {
 			// #ifdef APP
 			this.openLists = [{
-					image: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/weixin.png',
+					image: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/weixin.png',
 					text: '微信支付',
 					id: 1
 				}, {
-					image: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/zhifubao.png',
+					image: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/zhifubao.png',
 					text: '支付宝',
 					id: 2
 				}],
@@ -71,7 +71,7 @@
 
 			// #ifdef MP-WEIXIN
 			this.openLists = [{
-					image: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/weixin.png',
+					image: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/weixin.png',
 					text: '微信支付',
 					id: 1
 				}],
@@ -82,25 +82,25 @@
 			let ua = navigator.userAgent.toLowerCase();
 			if (ua.indexOf('micromessenger') !== -1) {
 				this.openLists = [{
-						image: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/weixin.png',
+						image: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/weixin.png',
 						text: '微信支付',
 						id: 1
 					}, {
-						image: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/zhifubao.png',
+						image: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/zhifubao.png',
 						text: '支付宝',
 						id: 2
 					}],
 					this.openWay = 1;
 			} else {
 				this.openLists = [{
-						image: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/zhifubao.png',
+						image: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/zhifubao.png',
 						text: '支付宝',
 						id: 2
 					}],
 					this.openWay = 2;
 			}
 			// this.openLists = [{
-			// 		image: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/zhifubao.png',
+			// 		image: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/zhifubao.png',
 			// 		text: '支付宝',
 			// 		id: 2
 			// 	}],

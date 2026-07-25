@@ -110,7 +110,7 @@
 				haibaoShow: false,
 				modalName: '',
 				canvasId: 'default_PosterCanvasId',
-				avatar: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png',
+				avatar: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png',
 				customStyle: {
 					background: '#FFE0E0',
 					border: '0',

@@ -103,7 +103,7 @@
 		
 		<u-mask :show="reciveKanDianFlag" :mask-click-able="false" class="flex flex-direction justify-center align-center">
 			<view class="kd-bg flex flex-direction align-center">
-				<u-image style="margin-top: 78rpx;" width="264rpx" height="80rpx" src="https://your-admin-domain.com/img/20250324/c887d8aaf58c45abbf4e2c551743d685.webp"/>
+				<u-image style="margin-top: 78rpx;" width="264rpx" height="80rpx" src="https://wefly.work/img/20250324/c887d8aaf58c45abbf4e2c551743d685.webp"/>
 				<span class="kd-title">{{title && '' !== title ? title : '限时福利'}}</span>
 				<span class="kd-content">获得看点</span>
 				<span class="kd-num">{{num && '' !== num ? num : '0'}} <span class="kd-unit">个</span></span>
@@ -764,7 +764,7 @@
 	}
 	.top-bg {
 		position: absolute;
-		background-image: url('https://your-admin-domain.com/img/20250324/362a135140b244c89313121950a9cbdb.webp');
+		background-image: url('https://wefly.work/img/20250324/362a135140b244c89313121950a9cbdb.webp');
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 750rpx;
@@ -1023,7 +1023,7 @@
 	}
 	
 	.kd-bg{
-		background-image: url('https://your-admin-domain.com/img/20250324/da1c6faf31054891a8d2b611faded94f.webp');
+		background-image: url('https://wefly.work/img/20250324/da1c6faf31054891a8d2b611faded94f.webp');
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 628rpx;
@@ -1096,7 +1096,7 @@
 	}
 	
 	.kd-succ-bg {
-		background-image: url('https://your-admin-domain.com/img/20250324/31484d6dd0cc45aab2b002f8b51f6eae.webp');
+		background-image: url('https://wefly.work/img/20250324/31484d6dd0cc45aab2b002f8b51f6eae.webp');
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 750rpx;

@@ -322,7 +322,7 @@
 </script>
 
 <style lang="less">
-	// @import 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/css/index.css';
+	// @import 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/css/index.css';
 
 	.view2-view-text {
 		font-size: 14px;

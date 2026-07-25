@@ -33,10 +33,10 @@
 					<!-- 视频信息 -->
 					<view class="choose-btn flex justify-between align-center" @click="goCourse(item.courseId,item.courseDetailsId)">
 						<span class="choose-btn-span">选集</span>
-						<u-image width="28rpx" height="28rpx" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/vedio/up.png" />
+						<u-image width="28rpx" height="28rpx" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/vedio/up.png" />
 					</view>
 					<view class="swipers-items-info" @click="goCourse(item.courseId,item.courseDetailsId)">
-						<image style="width: 32rpx;height: 32rpx;" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/vedio/icon.png"/>
+						<image style="width: 32rpx;height: 32rpx;" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/vedio/icon.png"/>
 						<!-- 标题 -->
 						<view class="swipers-items-info-title">
 							<!-- 【{{ title }}】 第 {{num}} 集 · 共 {{meunList.length}} 集 -->
@@ -58,7 +58,7 @@
 						</view>
 						<view class="swipers-items-right-item" @click="share(item)">
 							<view class="swipers-items-right-item-img">
-								<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png" mode=""></image>
+								<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png" mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
 								分享
@@ -66,7 +66,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-if="item.isCollect==null || item.isCollect == 0">
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png" style="height: 60rpx;" mode=""></image>
+								<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png" style="height: 60rpx;" mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
 								追剧
@@ -74,7 +74,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-else>
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png" style="height: 60rpx;" mode="">
+								<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png" style="height: 60rpx;" mode="">
 								</image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -787,7 +787,7 @@
 
 		.choose-btn {
 			padding: 12rpx 24rpx;
-			background-image: url('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/details/btn.png');
+			background-image: url('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/details/btn.png');
 			background-repeat: no-repeat;
 			background-size: cover;
 			width: 140rpx;

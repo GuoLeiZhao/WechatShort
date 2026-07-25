@@ -288,7 +288,7 @@
 		
 		padding: 0 48rpx 0 40rpx;
 		
-		background-image: url('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/jifen/bg.png');
+		background-image: url('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/jifen/bg.png');
 		background-repeat: no-repeat;
 		background-size: cover;
 		
@@ -347,7 +347,7 @@
 			
 			height: 96rpx;
 			border-radius: 32rpx 32rpx 0rpx 0rpx;
-			background-image: url('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/jifen/title-bg.png');
+			background-image: url('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/jifen/title-bg.png');
 			background-repeat: no-repeat;
 			background-size: cover;
 			
@@ -375,11 +375,11 @@
 			}
 			
 			.charge.active {
-				background-image: url('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/jifen/left.png');
+				background-image: url('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/jifen/left.png');
 			}
 			
 			.pay.active {
-				background-image: url('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/jifen/right.png');
+				background-image: url('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/jifen/right.png');
 			}
 		}
 	

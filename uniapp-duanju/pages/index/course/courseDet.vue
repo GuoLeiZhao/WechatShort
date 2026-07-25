@@ -51,10 +51,10 @@
 					<view class="navigation" style="position: fixed;bottom: 0;width: 100%;font-size: 32rpx;z-index: 999;">
 						<view class="left">
 							<view class="item" @click="courseCollect">
-								<u-image v-if="courseDet.isCollect == 0" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/collect_.png"
+								<u-image v-if="courseDet.isCollect == 0" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/collect_.png"
 									width="44rpx" height="44rpx">
 								</u-image>
-								<u-image v-else src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/collect.png" width="44rpx"
+								<u-image v-else src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/collect.png" width="44rpx"
 									height="44rpx">
 								</u-image>
 								<view class="text">收藏</view>
@@ -63,7 +63,7 @@
 
 						<view class="left" v-if="courseDet.courseType==3&&courseDet.isMyCourse == 2">
 							<view class="item" @click="yulan">
-								<u-image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/zixun.png" width="44rpx" height="44rpx">
+								<u-image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/zixun.png" width="44rpx" height="44rpx">
 								</u-image>
 								<view class="text">预览</view>
 							</view>
@@ -135,17 +135,17 @@
 						style="position: fixed;bottom: 0;width: 100%;font-size: 32rpx;z-index: 99;">
 						<view class="left">
 							<view class="item" @click="courseCollect">
-								<u-image v-if="courseDet.isCollect == 0" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/collect_.png"
+								<u-image v-if="courseDet.isCollect == 0" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/collect_.png"
 									width="44rpx" height="44rpx">
 								</u-image>
-								<u-image v-else src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/collect.png" width="44rpx"
+								<u-image v-else src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/collect.png" width="44rpx"
 									height="44rpx"></u-image>
 								<view class="text">收藏</view>
 							</view>
 						</view>
 						<view class="left" v-if="courseDet.courseType==3&&courseDet.isMyCourse == 2">
 							<view class="item" @click="yulan">
-								<u-image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/zixun.png" width="44rpx" height="44rpx">
+								<u-image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/course/zixun.png" width="44rpx" height="44rpx">
 								</u-image>
 								<view class="text">预览</view>
 							</view>

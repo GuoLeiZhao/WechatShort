@@ -6,7 +6,7 @@
 				<view class="num-box flex">
 					<span class="num">{{formatNumber(moneyNum)}}</span>
 					<span @click="goNav('/me/wallet/mingxi')" class="mingxi">明细</span>
-					<u-image class="img" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/go-arrow.png" width="28rpx" height="28rpx" />
+					<u-image class="img" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/go-arrow.png" width="28rpx" height="28rpx" />
 				</view>
 				
 			</view>
@@ -24,7 +24,7 @@
 						@click="currSelect = 'money-' + idx"
 					>
 						<view class="flex align-center">
-							<u-image width="35rpx" height="35rpx" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/details/view.png"/>
+							<u-image width="35rpx" height="35rpx" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/details/view.png"/>
 							<span class="title-num">{{item.max}}</span>
 						</view>
 						<span class="payMoney">
@@ -473,7 +473,7 @@
 		.top {
 			height: 452rpx;
 			width: 750rpx;
-			background-image: url('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/payBg.png');
+			background-image: url('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/payBg.png');
 			background-repeat: no-repeat;
 			background-size: cover;
 			

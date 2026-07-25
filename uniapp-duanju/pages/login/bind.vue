@@ -119,7 +119,7 @@
 							this.$queue.setData('userName', res.user.userName);
 							this.$queue.setData('phone', res.user.phone);
 							this.$queue.setData('avatar', res.user.avatar ? res.user.avatar :
-								'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/logo.png');
+								'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/logo.png');
 							this.$queue.showToast('绑定成功');
 							setTimeout(function() {
 								uni.switchTab({

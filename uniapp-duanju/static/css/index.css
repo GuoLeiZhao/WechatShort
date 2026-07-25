@@ -143,7 +143,7 @@
 
 .index-content .home_ant_juhuasuan .fr-jutext {
 	line-height: 45px;
-	background: url('~https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/img/goods/right_icon.png') center right no-repeat;
+	background: url('~https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/img/goods/right_icon.png') center right no-repeat;
 	color: #999;
 	-webkit-background-size: auto 11px;
 	background-size: auto 11px;
@@ -249,7 +249,7 @@
 	float: right;
 	color: #aaa;
 	font-size: 14px;
-	background: url('~https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/img/goods/right_icon.png') center right no-repeat;
+	background: url('~https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/img/goods/right_icon.png') center right no-repeat;
 	-webkit-background-size: auto 11px;
 	background-size: auto 11px;
 	width: 65%;
@@ -503,7 +503,7 @@
 	content: "";
 	width: 2px;
 	height: 55%;
-	/* background: url('~https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/img/goods/hr.png'); */
+	/* background: url('~https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/img/goods/hr.png'); */
 	-webkit-background-size: auto 100%;
 	-moz-background-size: auto 100%;
 	background-size: auto 100%;

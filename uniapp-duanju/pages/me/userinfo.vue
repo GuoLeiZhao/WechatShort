@@ -7,11 +7,11 @@
 					<!-- #ifdef MP-WEIXIN -->
 					<button open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
 						<image style="width: 111rpx;height: 111rpx;border-radius: 50%"
-							:src="headImg?headImg:'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'"></image>
+							:src="headImg?headImg:'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'"></image>
 					</button>
 					<!-- #endif -->
 					<!-- #ifndef MP-WEIXIN -->
-					<image :src="headImg?headImg:'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'" mode="" @click="uploadImg"
+					<image :src="headImg?headImg:'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png'" mode="" @click="uploadImg"
 						style="width: 111rpx;height: 111rpx;border-radius: 50%;"></image>
 					<!-- #endif -->
 				</view>
@@ -61,7 +61,7 @@
 		data() {
 			return {
 				phone: '',
-				headImg: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png',
+				headImg: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/logo.png',
 				userName: '',
 				nickName: '',
 				userId: '',

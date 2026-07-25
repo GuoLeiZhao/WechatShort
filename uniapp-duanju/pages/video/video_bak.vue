@@ -60,7 +60,7 @@
 						</view>
 						<view class="swipers-items-right-item" @click="share(item)">
 							<view class="swipers-items-right-item-img">
-								<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png" mode=""></image>
+								<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png" mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
 								分享
@@ -68,7 +68,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-if="item.isCollect==null || item.isCollect == 0">
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png" style="height: 60rpx;" mode=""></image>
+								<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png" style="height: 60rpx;" mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
 								追剧
@@ -76,7 +76,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-else>
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png" style="height: 60rpx;" mode="">
+								<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png" style="height: 60rpx;" mode="">
 								</image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -222,7 +222,7 @@
 				this.courseDetailsId = e.courseDetailsId
 			}
 			this.getDataList()
-			this.tabBarJson = require('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/json/tabBar.json')
+			this.tabBarJson = require('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/json/tabBar.json')
 		},
 		onReady() {
 			// #ifdef MP-WEIXIN

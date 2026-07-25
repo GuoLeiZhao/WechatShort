@@ -1,4 +1,4 @@
-const TRACK_SERVER = "https://your-api-domain.com/sqx_fast/user_event/record"; // 你的服务端埋点上报地址
+const TRACK_SERVER = "https://wefly.work/sqx_fast/user_event/record"; // 你的服务端埋点上报地址
 const STORAGE_KEY = "TRACK_EVENTS_CACHE";
 const MAX_CACHE = 10; // 超过10条就上报
 const UPLOAD_INTERVAL = 5000; // 5秒定时上报

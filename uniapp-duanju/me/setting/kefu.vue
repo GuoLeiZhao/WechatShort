@@ -23,7 +23,7 @@
 	export default {
 		data() {
 			return {
-				image: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/duanju-mp-index/img/qiwei.jpg',
+				image: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/duanju-mp-index/img/qiwei.jpg',
 				isWeiXin: false,
 				weixin: '710070994',
 				webviewStyles: {
@@ -117,7 +117,7 @@
 </script>
 
 <style>
-	/* @import 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/css/index.css'; */
+	/* @import 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/css/index.css'; */
 
 	page {
 		background: #F5F5F5;

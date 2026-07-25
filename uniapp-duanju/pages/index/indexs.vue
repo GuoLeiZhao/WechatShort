@@ -25,7 +25,7 @@
 					</view>
 					<view class="" @click.stop="goMsglist">
 						<image
-							src="https://your-api-domain.com/file/uploadPath/2023/03/07/74ec77d19676555558e5e04464fe0359.png"
+							src="https://wefly.work/file/uploadPath/2023/03/07/74ec77d19676555558e5e04464fe0359.png"
 							style="width: 45rpx;height: 40rpx;"></image>
 					</view>
 				</view>

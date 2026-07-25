@@ -49,11 +49,11 @@ function interceptRequests() {
 	XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
 		if (0 < url.indexOf('h-gy.getui.net')){
 			// 在这里修改 URL
-			url = url.replace('h-gy.getui.net', 'your-api-domain.com/getui');
+			url = url.replace('h-gy.getui.net', 'wefly.work/getui');
 		}
 		
 		if(0 < url.indexOf('h-gy.getui.net')){
-			url = url.replace('api.next.bspapp.com', 'your-api-domain.com/bspapp');
+			url = url.replace('api.next.bspapp.com', 'wefly.work/bspapp');
 		}
 		// 调用原始的 open 方法
 		return originalOpen.call(this, method, url, async == undefined ? true : async , user, pass);

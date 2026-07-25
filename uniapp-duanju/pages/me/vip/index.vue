@@ -3,7 +3,7 @@
 	<view>
 		<view class="margin-top margin-lr radius u-relative"
 			style="overflow: hidden;height: 260rpx;border-radius: 40rpx;">
-			<u-image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/beijing@2x.png" width="100%" height="400rpx"></u-image>
+			<u-image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/beijing@2x.png" width="100%" height="400rpx"></u-image>
 			<view class="u-abso margin" style="top: 0;">
 				<view class="text-bold u-font-40">{{userName}}</view>
 				<view class="margin-top-sm" style="color: #604320;" v-if="!isVIP">购买会员，畅享 {{courseCount}} 部短剧！！</view>

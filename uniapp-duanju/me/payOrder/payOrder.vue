@@ -42,12 +42,12 @@
 		onLoad(option) {
 			// #ifdef APP
 			this.payList = [{
-					imgurl: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/weixin.jpg',
+					imgurl: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/weixin.jpg',
 					name: '微信支付',
 					payAway: 1
 				},
 				{
-					imgurl: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/zhifubao.jpg',
+					imgurl: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/zhifubao.jpg',
 					name: '支付宝支付',
 					payAway: 2
 				}
@@ -56,7 +56,7 @@
 			// #endif
 			// #ifdef MP-WEIXIN
 			this.payList = [{
-					imgurl: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/weixin.jpg',
+					imgurl: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/weixin.jpg',
 					name: '微信支付',
 					payAway: 1
 				}
@@ -83,7 +83,7 @@
 			if (ua.indexOf('micromessenger') !== 1) {
 				this.payList = [
 					{
-						imgurl: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/weixin.jpg',
+						imgurl: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/weixin.jpg',
 						name: '微信支付',
 						payAway: 1
 					}
@@ -91,7 +91,7 @@
 				this.payAway = 1
 			} else {
 				this.payList = [{
-						imgurl: 'https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/weixin.jpg',
+						imgurl: 'https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/pay/weixin.jpg',
 						name: '微信支付',
 						payAway: 1
 					}

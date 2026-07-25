@@ -16,11 +16,11 @@ module.exports = {
 	},
 	//全局域名 部分html中需要单独替换 需要修改config中的网络请求域名
 	publicYuMing() {
-		return 'https://your-api-domain.com'
+		return 'https://wefly.work'
 	},
 	//全局域名 部分html中需要单独替换 需要修改config中的网络请求域名
 	publicYuMingAll() {
-		return 'https://your-api-domain.com/sqx_fast'
+		return 'https://wefly.work/sqx_fast'
 	},
 	minMoney() {
 		return uni.getStorageSync("minMoney") ? uni.getStorageSync("minMoney") : '0.3'

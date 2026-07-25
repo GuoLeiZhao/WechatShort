@@ -32,9 +32,9 @@
 						<view class="swipers-items-right-item">
 							<view class="swipers-items-right-item-img" @click.stop="dianzan(item)">
 								<image v-if="item.isGood!=null && item.isGood!=0" class="swipers-items-right-item-imgs"
-									src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/myLove_.png" mode=""></image>
+									src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/myLove_.png" mode=""></image>
 								<image v-else class="swipers-items-right-item-imgs"
-									src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/myLove.png" mode=""></image>
+									src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/myLove.png" mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
 								<text class="swipers-items-right-item-txts">
@@ -44,7 +44,7 @@
 						</view>
 						<view class="swipers-items-right-item" @click="share()">
 							<view class="swipers-items-right-item-img">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/share.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -55,7 +55,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-if="item.isCollect==null || item.isCollect == 0">
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -66,7 +66,7 @@
 						</view>
 						<view class="swipers-items-right-item" v-else>
 							<view class="swipers-items-right-item-img" @click.stop="shoucang(item)">
-								<image class="swipers-items-right-item-imgs" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png"
+								<image class="swipers-items-right-item-imgs" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/me/shuqian_s.png"
 									mode=""></image>
 							</view>
 							<view class="swipers-items-right-item-txt">
@@ -165,7 +165,7 @@
 					that.rightTop.top = '630rpx'
 				}
 			})
-			this.tabBarJson = require('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/json/tabBar.json')
+			this.tabBarJson = require('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/json/tabBar.json')
 
 		},
 		onShow() {

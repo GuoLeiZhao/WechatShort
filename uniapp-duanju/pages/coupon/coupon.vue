@@ -7,13 +7,13 @@
 					class="active-tab" 
 					style="padding-left: 16rpx;"
 				>福利
-					<image class="active-img" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_13.png" alt="" />
+					<image class="active-img" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_13.png" alt="" />
 				</span>
 				<span @click="goTab('/pages/coupon/good')" 
 					class="inactive-tab" 
 					style="padding-left: 16rpx;"
 				>商城
-					<image class="active-img" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_13.png" alt="" />
+					<image class="active-img" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_13.png" alt="" />
 				</span>
 			</view>
 			<view class="curr-coupons">
@@ -38,12 +38,12 @@
 					<view v-for="(item,index) in signDays" :key="index" class="day-item">
 						<view class="jifen">
 							<span>{{item.value}}</span>
-							<image v-if="day != item.max && latestWeek[index] == '1'" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_6.png" alt="" />
-							<image v-if="day != item.max && latestWeek[index] == '0'" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_10.png" alt="" />
-							<image v-if="day != item.max && latestWeek[index] == null" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_7.png" alt="" />
-							<image v-else-if="(!isSign && day == item.max)" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_10.png" alt="" />
-							<image v-else-if="(isSign && day == item.max)" src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_8.png" alt="" />
-							<image v-else src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_7.png" alt="" />
+							<image v-if="day != item.max && latestWeek[index] == '1'" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_6.png" alt="" />
+							<image v-if="day != item.max && latestWeek[index] == '0'" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_10.png" alt="" />
+							<image v-if="day != item.max && latestWeek[index] == null" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_7.png" alt="" />
+							<image v-else-if="(!isSign && day == item.max)" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_10.png" alt="" />
+							<image v-else-if="(isSign && day == item.max)" src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_8.png" alt="" />
+							<image v-else src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_7.png" alt="" />
 						</view>
 						<span v-if="day != item.max && latestWeek[index] != null" class="status">已签</span>
 						<span v-else-if="day == item.max" class="status">今天</span>
@@ -52,14 +52,14 @@
 				</view>
 				
 				<view class="get" @click="getFuli"><span>点击签到</span></view>
-				<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_11.png" alt="" class="float-l" />
-				<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_12.png" alt="" class="float-r" />
+				<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_11.png" alt="" class="float-l" />
+				<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_12.png" alt="" class="float-r" />
 			</view>
 			<view class="day-task">
 				<span class="title">做任务得看点</span>
 				<view class="task">
 					<view class="task-item">
-						<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_2.png" alt="" />
+						<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_2.png" alt="" />
 						<view class="task-content">
 							<view class="desc">
 								<span class="detail">看一集短剧</span>
@@ -84,7 +84,7 @@
 						<view v-else @click="goTab('/pages/video/video')" class="btn btn-acitve">去完成</view>
 					</view>
 					<view class="task-item">
-						<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_5.png" alt="" />
+						<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_5.png" alt="" />
 						<view class="task-content">
 							<view class="desc">
 								<span class="detail">收藏一部短剧</span>
@@ -108,7 +108,7 @@
 						<view v-else @click="goTab('/pages/video/video')" class="btn btn-acitve">去完成</view>
 					</view>
 					<view class="task-item">
-						<image src="https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_3.png" alt="" />
+						<image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_3.png" alt="" />
 						<view class="task-content">
 						<view class="desc">
 							<span class="detail">点赞10集短剧</span>
@@ -393,7 +393,7 @@
 	}
 	
 	.bg {
-		background-image: url('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_1.png');
+		background-image: url('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_1.png');
 		background-repeat: no-repeat;
 		background-size: cover;
 		height: 720rpx;
@@ -621,7 +621,7 @@
 		}
 		
 		.get{
-			background-image: url('https://your-oss-bucket.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_9.png');
+			background-image: url('https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/coupon/pic_9.png');
 			background-repeat: no-repeat;
 			background-size: cover;
 			height: 120rpx;
