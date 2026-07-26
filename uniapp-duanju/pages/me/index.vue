@@ -39,7 +39,7 @@
 				
 			</view>
 		</view>
-		<view class="func-title flex flex-direction align-center" v-if="true">
+		<view class="func-title flex flex-direction align-center" v-if="false">
 			<span class="title" @tap="test">
 				我的钱包
 			</span>
