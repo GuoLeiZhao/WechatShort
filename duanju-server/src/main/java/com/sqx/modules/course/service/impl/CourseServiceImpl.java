@@ -76,9 +76,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     private static final int WX_MEDIA_MAX_PAGE = 50;
 
     /**
-     * 微信媒资文件名里剧名和集名的分隔符，如「我的演艺 - 第1集」
+     * 微信媒资文件名里剧名和集名的分隔符，按优先级尝试。
+     * 老代码只认「 - 」（前后带空格，如「我的演艺 - 第1集」），
+     * 但实际媒资库里的命名是「黄仙谣-第31集.mp4」，不带空格，导致剧名永远解析不出来。
      */
-    private static final String WX_MEDIA_NAME_SEPARATOR = " - ";
+    private static final String[] WX_MEDIA_NAME_SEPARATORS = {" - ", "-"};
 
     /**
      * 从媒资文件名里抽集号的正则
@@ -703,28 +705,41 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     }
 
     /**
-     * 从媒资文件名解析剧名，如「我的演艺 - 第1集」→「我的演艺」；没有分隔符则返回 null
+     * 在文件名里定位剧名和集名的分隔符，返回 {分隔符起始下标, 分隔符长度}；找不到返回 null
+     */
+    private int[] findNameSeparator(String mediaName) {
+        for (String separator : WX_MEDIA_NAME_SEPARATORS) {
+            int index = mediaName.lastIndexOf(separator);
+            if (index > 0) {
+                return new int[]{index, separator.length()};
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 从媒资文件名解析剧名，如「黄仙谣-第31集.mp4」→「黄仙谣」；没有分隔符则返回 null
      */
     private String parseDramaTitle(String mediaName) {
         if (StringUtils.isBlank(mediaName)) {
             return null;
         }
-        int index = mediaName.lastIndexOf(WX_MEDIA_NAME_SEPARATOR);
-        if (index <= 0) {
+        int[] separator = findNameSeparator(mediaName);
+        if (separator == null) {
             return null;
         }
-        return mediaName.substring(0, index).trim();
+        return mediaName.substring(0, separator[0]).trim();
     }
 
     /**
-     * 从媒资文件名解析集号，取分隔符后半段里第一组数字，如「我的演艺 - 第12集.mp4」→「12」；解析不出返回 null
+     * 从媒资文件名解析集号，取分隔符后半段里第一组数字，如「黄仙谣-第31集.mp4」→「31」；解析不出返回 null
      */
     private String parseEpisodeNo(String mediaName) {
         if (StringUtils.isBlank(mediaName)) {
             return null;
         }
-        int index = mediaName.lastIndexOf(WX_MEDIA_NAME_SEPARATOR);
-        String tail = index < 0 ? mediaName : mediaName.substring(index + WX_MEDIA_NAME_SEPARATOR.length());
+        int[] separator = findNameSeparator(mediaName);
+        String tail = separator == null ? mediaName : mediaName.substring(separator[0] + separator[1]);
         // 先去掉扩展名，否则 .mp4 里的 4 会被当成集号
         tail = FILE_EXTENSION_PATTERN.matcher(tail).replaceAll("");
         Matcher matcher = EPISODE_NO_PATTERN.matcher(tail);
