@@ -86,6 +86,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
      */
     private static final Pattern FILE_EXTENSION_PATTERN = Pattern.compile("\\.[A-Za-z0-9]{2,5}$");
 
+    /**
+     * IAA（看广告解锁）模式下免费的集数：前 N 集免费，其余锁定靠看广告解锁。
+     * 注意后端算免费区间的 queryFreeMaxMin 用的是 varchar 的 min/max（字符串排序），
+     * 这个值超过 9 会算错（如 10 集会得到 '9'），要调大得先修那条 SQL。
+     */
+    private static final int IAA_FREE_EPISODE_COUNT = 1;
+
     @Autowired
     private CourseDetailsDao courseDetailsDao;
     @Autowired
@@ -504,6 +511,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
             if (isNewCourse) {
                 course = buildCourseFromMedia(dramaId, mediaList, now);
                 baseMapper.insert(course);
+            } else if (StringUtils.isBlank(course.getCourseLabel())) {
+                // 老剧只在标签本来就空着时补一次，不覆盖后台填过的文案
+                Course patch = new Course();
+                patch.setCourseId(course.getCourseId());
+                patch.setCourseLabel(mediaList.size() + "集全");
+                baseMapper.updateById(patch);
+                course.setCourseLabel(patch.getCourseLabel());
             }
 
             // 已有的集按集号建索引，同步是幂等的：同名集只补 wx_media_id，不重复建
@@ -547,7 +561,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
                     details.setGood(2);
                     details.setPrice(BigDecimal.ZERO);
                     details.setJifen(BigDecimal.ZERO);
-                    details.setIsPrice(2);
+                    // 前 IAA_FREE_EPISODE_COUNT 集免费(2)，其余锁定(1)，锁定的集靠看广告解锁
+                    details.setIsPrice(isFreeEpisode(episodeNo) ? 2 : 1);
                     // 直接走 dao，绕开 CourseDetailsService.insert 里的抖音上传
                     courseDetailsDao.insert(details);
                     existsByName.put(episodeNo, details);
@@ -624,12 +639,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
 
         Course course = new Course();
         course.setTitle(title);
+        // 小程序首页渲染的是「全集·{courseLabel}」，不填会显示成「全集·null」
+        course.setCourseLabel(mediaList.size() + "集全");
         course.setWxMediaId(dramaId);
         course.setCourseType(1);
         course.setStatus(2);
         course.setIsDelete(0);
         course.setIsOver(0);
-        course.setIsPrice(2);
+        // 必须是 1（收费）。填 2 的话 WechatDramaPlayerServiceImpl 会直接走「全集免费」分支，
+        // 一集都不锁，看广告解锁永远触发不了
+        course.setIsPrice(1);
         course.setPrice(BigDecimal.ZERO);
         course.setJifen(BigDecimal.ZERO);
         course.setPayNum(0);
@@ -638,6 +657,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
         course.setCreateTime(now);
         course.setUpdateTime(now);
         return course;
+    }
+
+    /**
+     * 这一集是否属于免费集。集号解析不出数字时按锁定处理，宁可少放不可多放
+     */
+    private boolean isFreeEpisode(String episodeNo) {
+        try {
+            return Integer.parseInt(episodeNo) <= IAA_FREE_EPISODE_COUNT;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**

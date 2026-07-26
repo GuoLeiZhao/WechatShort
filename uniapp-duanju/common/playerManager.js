@@ -348,22 +348,28 @@ const proto = {
 						}], // 免费剧集
 					})
 				} else {
-					uni.setStorageSync('initUnlockSerialNo', 5)
+					// 免费区间以后端返回的 freeList 为准，不再写死。
+					// 原来写死 1-7 免费 + initUnlockSerialNo=5，对「第1集免费」的 IAA 配置有两处错：
+					// 前 7 集白送；而且第一次看完广告解锁的是 initUnlockSerialNo+1 = 第6集，2~5 集被跳过。
+					const fl = res?.data?.freeList
+					const freeStart = fl?.startSerialNo || 1
+					const freeEnd = fl?.endSerialNo || 1
+					uni.setStorageSync('initUnlockSerialNo', freeEnd)
 					// 初始化剧集列表状态
 					pm.setCanPlaySerialList({
 						data: that.encryptData,
 						serialList: [{
-							start_serial_no: 1,
-							end_serial_no: 7,
+							start_serial_no: freeStart,
+							end_serial_no: freeEnd,
 							status: 1,
 						}, {
-							start_serial_no: 8,
-							end_serial_no: 31,
+							start_serial_no: freeEnd + 1,
+							end_serial_no: 100,
 							status: 2,
 						}],
 						freeList: [{
-							start_serial_no: 1,
-							end_serial_no: 7,
+							start_serial_no: freeStart,
+							end_serial_no: freeEnd,
 						}], // 免费剧集
 					})
 				}
@@ -375,7 +381,17 @@ const proto = {
 				// 		end_serial_no: res.data.freeList.endSerialNo
 				// 	}], // 1~10集是免费剧集
 				// })
+			} else {
+				// 后端没返回加密数据（未登录 / 剧目没配 wx_media_id / 接口报错）。
+				// 以前这里什么都不做，插件手里一集可播的都没有，表现为能看见点不动且不报错。
+				// 官方 demo 的 setCanPlaySerialList 本来就可以不传 data，退化成非加密模式先让免费集能播。
+				console.warn('getEncryptData 未返回 encryptedData，走兜底放行', res)
+				that._setFallbackSerialList(pm, res?.data?.freeList)
 			}
+		}).catch(err => {
+			// 请求本身异常（超时、500）时，上面的 then 根本不会执行，同样要兜底
+			console.error('getEncryptData 请求异常，走兜底放行', err)
+			that._setFallbackSerialList(pm, null)
 		})
 
 		pm.onDataReport((obj) => {
@@ -532,11 +548,16 @@ const proto = {
 		const pm = this.pm
 		HttpRequest.getT('/app/course/selectCourseDetailsByWxMediaId/' + param.dramaId + '?name=' + param.serialNo)
 			.then(res => {
-				pm.isCanPlay({
-					data: that.encryptData,
+				// data 是可选的：有加密数据就带上让插件校验，没有（未登录等）就不带，
+				// 否则传 undefined 会让插件收不到这集的状态，广告解锁入口也跟着出不来
+				const isCanPlayParam = {
 					serialNo: param.serialNo,
 					status: 2
-				})
+				}
+				if (that.encryptData) {
+					isCanPlayParam.data = that.encryptData
+				}
+				pm.isCanPlay(isCanPlayParam)
 				pm.setUseAdUnlock({
 					list: [{
 						start_serial_no: param.serialNo,
@@ -610,6 +631,32 @@ const proto = {
 					})
 				}
 			})
+	},
+	/**
+	 * 拿不到后端加密数据时的兜底：不传 data，按免费区间直接放行。
+	 * freeList 有就用后端算出来的；没有就只放第 1 集，对齐 IAA「第一集免费、其余看广告解锁」，
+	 * 宁可少放不可多放（官方 demo 默认前 7 集，那是它自己的商业模型，不适用这里）。
+	 */
+	_setFallbackSerialList(pm, freeList) {
+		const start = freeList?.startSerialNo || 1
+		const end = freeList?.endSerialNo || 1
+		uni.setStorageSync('initUnlockSerialNo', end)
+		pm.setCanPlaySerialList({
+			serialList: [{
+				start_serial_no: start,
+				end_serial_no: end,
+				status: 1,
+			}, {
+				start_serial_no: end + 1,
+				end_serial_no: 100,
+				status: 2,
+			}],
+			freeList: [{
+				start_serial_no: start,
+				end_serial_no: end,
+			}],
+		})
+		console.log(`兜底放行：第 ${start}~${end} 集可播`)
 	},
 	getEncryptData(dramaId) {
 		let userId = uni.getStorageSync('userId');
