@@ -209,7 +209,7 @@
 						style=" width:148px;height:148px;border: 1px dashed #c0ccda;border-radius: 6px;text-align: center;line-height: 148px;">
 						<el-upload class="avatar-uploader" v-model="titleImg"
 							:action="$http.adornUrl('alioss/upload')"  :show-file-list="false"
-							:on-success="handleAvatarSuccess5">
+							:before-upload="beforeUploadImage" :on-success="handleAvatarSuccess5">
 							<img v-if="titleImg" :src="titleImg" class="avatar"
 								style="border-radius: 6px;width: 148px;height: 148px;" />
 							<i v-else class="el-icon-plus avatar-uploader-icon iconss"></i>
@@ -417,7 +417,7 @@
 						style=" width:148px;height:148px;border: 1px dashed #c0ccda;border-radius: 6px;text-align: center;line-height: 148px;">
 						<el-upload class="avatar-uploader" v-model="titleImg"
 							:action="$http.adornUrl('alioss/upload')"  :show-file-list="false"
-							:on-success="handleAvatarSuccess5">
+							:before-upload="beforeUploadImage" :on-success="handleAvatarSuccess5">
 							<img v-if="titleImg" :src="titleImg" class="avatar"
 								style="border-radius: 6px;width: 148px;height: 148px;" />
 							<i v-else class="el-icon-plus avatar-uploader-icon iconss"></i>
@@ -498,7 +498,7 @@
 					<div style=" width:148px;height:148px;border: 1px dashed #c0ccda;border-radius: 6px;text-align: center;line-height: 148px;">
 						<el-upload class="avatar-uploader" v-model="titleImg"
 							:action="$http.adornUrl('alioss/upload')"  :show-file-list="false"
-							:on-success="handleAvatarSuccess5">
+							:before-upload="beforeUploadImage" :on-success="handleAvatarSuccess5">
 							<img v-if="titleImg" :src="titleImg" class="avatar"
 								style="border-radius: 6px;width: 148px;height: 148px;" />
 							<i v-else class="el-icon-plus avatar-uploader-icon iconss"></i>
@@ -644,7 +644,7 @@
 					style=" width:148px;height:148px;border: 1px dashed #c0ccda;border-radius: 6px;text-align: center;line-height: 148px;">
 					<el-upload class="avatar-uploader" v-model="titleImg"
 						:action="$http.adornUrl('alioss/upload')"  :show-file-list="false"
-						:on-success="handleAvatarSuccess5">
+						:before-upload="beforeUploadImage" :on-success="handleAvatarSuccess5">
 						<img v-if="titleImg" :src="titleImg" class="avatar"
 							style="border-radius: 6px;width: 148px;height: 148px;" />
 						<i v-else class="el-icon-plus avatar-uploader-icon iconss"></i>
@@ -1100,7 +1100,28 @@
 				this.classifySelect1()
 			},
 			// 封面图片上传
+			// 图片上传前校验：后端同样有 2MB 限制，这里先拦一道，省得白传一遍再被拒
+			beforeUploadImage(file) {
+				const isImage = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'].indexOf(file
+					.type) !== -1;
+				if (!isImage) {
+					this.$message.error('请上传图片格式的文件');
+					return false;
+				}
+				if (file.size / 1024 / 1024 > 2) {
+					this.$message.error(
+						`图片不能超过 2MB，当前 ${(file.size / 1024 / 1024).toFixed(1)}MB。封面建议压到 600x800、200KB 以内，否则首页加载会很慢`
+					);
+					return false;
+				}
+				return true;
+			},
 			handleAvatarSuccess5(file) {
+				// 后端返回 code!=0 时 data 是 undefined，不判的话图不出来又没有任何提示
+				if (file.code !== 0) {
+					this.$message.error(file.msg || '上传失败');
+					return;
+				}
 				this.titleImg = file.data;
 			},
 			// 详情图片上传

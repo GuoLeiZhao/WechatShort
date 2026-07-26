@@ -26,8 +26,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -43,6 +45,19 @@ import java.util.UUID;
 public class AliFileUploadController {
 
 
+    /**
+     * 图片上传大小上限。封面在手机上显示才 300x400 左右，2MB 的原图会让首页加载十几秒
+     * （实测 2.3MB 封面在 1Mbps 带宽下要 18 秒），建议压到 600x800、200KB 以内。
+     */
+    private static final long MAX_IMAGE_SIZE = 2 * 1024 * 1024L;
+
+    /**
+     * 视为图片的扩展名。视频也走这个接口（后台批量导入剧集），不能一刀切限制大小，
+     * 所以只对图片生效，其余类型放行。
+     */
+    private static final List<String> IMAGE_EXTENSIONS =
+            Arrays.asList("jpg", "jpeg", "png", "gif", "bmp", "webp");
+
     private final CommonInfoService commonRepository;
 
     @Autowired
@@ -50,10 +65,41 @@ public class AliFileUploadController {
         this.commonRepository = commonRepository;
     }
 
+    /**
+     * 超限返回错误信息，未超限或不是图片返回 null
+     */
+    private String checkImageSize(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return null;
+        }
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null) {
+            return null;
+        }
+        int dotIndex = originalFilename.lastIndexOf(".");
+        if (dotIndex < 0) {
+            return null;
+        }
+        String extension = originalFilename.substring(dotIndex + 1).toLowerCase();
+        if (!IMAGE_EXTENSIONS.contains(extension)) {
+            // 视频等其他类型不受此限制
+            return null;
+        }
+        if (file.getSize() <= MAX_IMAGE_SIZE) {
+            return null;
+        }
+        return String.format("图片不能超过 %dMB，当前 %.1fMB。请压缩后再传，封面建议 600x800、200KB 以内",
+                MAX_IMAGE_SIZE / 1024 / 1024, file.getSize() / 1024.0 / 1024.0);
+    }
+
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ApiOperation("文件上传")
     @ResponseBody
     public Result upload(@RequestParam("file") MultipartFile file){
+        String sizeError = checkImageSize(file);
+        if (sizeError != null) {
+            return Result.error(-100, sizeError);
+        }
         String value = commonRepository.findOne(234).getValue();
         if("1".equals(value)){
             // 创建OSSClient实例。
