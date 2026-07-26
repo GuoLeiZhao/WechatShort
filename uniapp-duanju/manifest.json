@@ -142,7 +142,6 @@
                 "provider" : "wx94a6522b1d640c3b",
                 "genericsImplementation" : {
                     "playlet" : {
-                        "charge-dialog" : "/components/charge-dialog/charge-dialog",
                         "open-area-left" : "/components/open-area-left/open-area-left",
                         "open-area-left-side" : "/components/open-area-left-side/open-area-left-side"
                     }
