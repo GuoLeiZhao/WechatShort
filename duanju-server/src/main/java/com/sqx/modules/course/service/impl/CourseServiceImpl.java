@@ -45,11 +45,15 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -534,6 +538,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
             int auditPassed = 0;
             int auditPending = 0;
             int auditRejected = 0;
+
+            // 先整体解析一遍集号再落库。这样才能按「实际最小的几集」定免费集，
+            // 而不是死认第 1 集 —— 一部剧若一集免费的都没有，后端 queryFreeMaxMin 返回
+            // 的 min 为 null，WechatDramaPlayerServiceImpl 里 getMin().trim() 直接 NPE，整部剧播不了
+            Map<String, ListMediaResponse.MediaInfo> mediaByEpisode = new LinkedHashMap<>();
             for (ListMediaResponse.MediaInfo media : mediaList) {
                 int auditStatus = media.getAuditDetail() == null ? 0 : media.getAuditDetail().getStatus();
                 if (auditStatus == 3) {
@@ -549,7 +558,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
                     warnings.add("剧目 " + dramaId + " 的视频「" + media.getName() + "」解析不出集号，已跳过");
                     continue;
                 }
+                ListMediaResponse.MediaInfo duplicated = mediaByEpisode.put(episodeNo, media);
+                if (duplicated != null) {
+                    // 不报的话后一个会静默覆盖前一个的 media_id，报告里只看到一次「更新」
+                    warnings.add("剧目 " + dramaId + " 的「" + duplicated.getName() + "」和「" + media.getName()
+                            + "」都解析成第 " + episodeNo + " 集，只保留后者");
+                }
+            }
+            Set<String> freeEpisodes = pickFreeEpisodes(mediaByEpisode.keySet());
 
+            for (Map.Entry<String, ListMediaResponse.MediaInfo> episodeEntry : mediaByEpisode.entrySet()) {
+                String episodeNo = episodeEntry.getKey();
+                ListMediaResponse.MediaInfo media = episodeEntry.getValue();
                 CourseDetails exist = existsByName.get(episodeNo);
                 if (exist == null) {
                     CourseDetails details = new CourseDetails();
@@ -562,7 +582,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
                     details.setPrice(BigDecimal.ZERO);
                     details.setJifen(BigDecimal.ZERO);
                     // 前 IAA_FREE_EPISODE_COUNT 集免费(2)，其余锁定(1)，锁定的集靠看广告解锁
-                    details.setIsPrice(isFreeEpisode(episodeNo) ? 2 : 1);
+                    details.setIsPrice(freeEpisodes.contains(episodeNo) ? 2 : 1);
                     // 直接走 dao，绕开 CourseDetailsService.insert 里的抖音上传
                     courseDetailsDao.insert(details);
                     existsByName.put(episodeNo, details);
@@ -660,13 +680,25 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     }
 
     /**
-     * 这一集是否属于免费集。集号解析不出数字时按锁定处理，宁可少放不可多放
+     * 按集号从小到大取前 IAA_FREE_EPISODE_COUNT 集作为免费集。
+     * 用「实际最小的几集」而不是死认第 1 集，是为了保证每部剧至少有一集免费——
+     * 一集免费的都没有会让后端算免费区间时 NPE。
      */
-    private boolean isFreeEpisode(String episodeNo) {
+    private Set<String> pickFreeEpisodes(Collection<String> episodeNos) {
+        return episodeNos.stream()
+                .sorted(Comparator.comparingInt(this::episodeNoAsInt))
+                .limit(IAA_FREE_EPISODE_COUNT)
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    /**
+     * 集号转数字用于排序，转不出的排到最后，不会被选成免费集
+     */
+    private int episodeNoAsInt(String episodeNo) {
         try {
-            return Integer.parseInt(episodeNo) <= IAA_FREE_EPISODE_COUNT;
+            return Integer.parseInt(episodeNo);
         } catch (NumberFormatException e) {
-            return false;
+            return Integer.MAX_VALUE;
         }
     }
 
