@@ -43,11 +43,16 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,6 +60,31 @@ import java.util.stream.Collectors;
 public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements CourseService {
 
     public static final String COURSE_UPDATE_LOCK_KEY = "course:update:lock:";
+
+    /**
+     * 微信媒资分页每页条数，微信侧上限就是 100
+     */
+    private static final int WX_MEDIA_PAGE_SIZE = 100;
+
+    /**
+     * 微信媒资最多拉取页数，防止接口异常时死循环
+     */
+    private static final int WX_MEDIA_MAX_PAGE = 50;
+
+    /**
+     * 微信媒资文件名里剧名和集名的分隔符，如「我的演艺 - 第1集」
+     */
+    private static final String WX_MEDIA_NAME_SEPARATOR = " - ";
+
+    /**
+     * 从媒资文件名里抽集号的正则
+     */
+    private static final Pattern EPISODE_NO_PATTERN = Pattern.compile("\\d+");
+
+    /**
+     * 媒资文件名结尾的扩展名，解析集号前要先去掉
+     */
+    private static final Pattern FILE_EXTENSION_PATTERN = Pattern.compile("\\.[A-Za-z0-9]{2,5}$");
 
     @Autowired
     private CourseDetailsDao courseDetailsDao;
@@ -431,6 +461,222 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
         // 获取最新的播放链接
         refreshWechatVideoUrl();
         System.out.println(111);
+    }
+
+    @Override
+    public Result syncWechatDrama() {
+        List<ListMediaResponse.MediaInfo> allMedia;
+        try {
+            allMedia = listAllWxMedia();
+        } catch (Exception e) {
+            log.error("拉取微信媒资失败", e);
+            return Result.error("拉取微信媒资失败：" + e.getMessage());
+        }
+        if (CollUtil.isEmpty(allMedia)) {
+            return Result.error("微信媒资库里没有查到视频，请先在微信公众平台上传剧集");
+        }
+
+        List<String> warnings = new ArrayList<>();
+        // dramaId 为 0 表示这条媒资还没归到任何剧目下，同步不了
+        long noDramaCount = allMedia.stream().filter(media -> media.getDramaId() <= 0).count();
+        if (noDramaCount > 0) {
+            warnings.add("有 " + noDramaCount + " 个视频未归属到任何剧目，已跳过");
+        }
+        Map<Integer, List<ListMediaResponse.MediaInfo>> mediaByDrama = allMedia.stream()
+                .filter(media -> media.getDramaId() > 0)
+                .collect(Collectors.groupingBy(ListMediaResponse.MediaInfo::getDramaId, LinkedHashMap::new, Collectors.toList()));
+
+        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        List<Map<String, Object>> report = new ArrayList<>();
+        int totalInserted = 0;
+        int totalUpdated = 0;
+
+        for (Map.Entry<Integer, List<ListMediaResponse.MediaInfo>> entry : mediaByDrama.entrySet()) {
+            long dramaId = entry.getKey();
+            List<ListMediaResponse.MediaInfo> mediaList = entry.getValue();
+
+            Course course = baseMapper.selectOne(new QueryWrapper<Course>().lambda()
+                    .eq(Course::getWxMediaId, dramaId)
+                    .eq(Course::getIsDelete, 0)
+                    .orderByAsc(Course::getCourseId)
+                    .last("limit 1"));
+            boolean isNewCourse = course == null;
+            if (isNewCourse) {
+                course = buildCourseFromMedia(dramaId, mediaList, now);
+                baseMapper.insert(course);
+            }
+
+            // 已有的集按集号建索引，同步是幂等的：同名集只补 wx_media_id，不重复建
+            Map<String, CourseDetails> existsByName = new HashMap<>();
+            for (CourseDetails exist : courseDetailsDao.selectByCourseId(course.getCourseId())) {
+                if (StringUtils.isNotBlank(exist.getCourseDetailsName())) {
+                    existsByName.putIfAbsent(exist.getCourseDetailsName().trim(), exist);
+                }
+            }
+
+            int inserted = 0;
+            int updated = 0;
+            int unchanged = 0;
+            int auditPassed = 0;
+            int auditPending = 0;
+            int auditRejected = 0;
+            for (ListMediaResponse.MediaInfo media : mediaList) {
+                int auditStatus = media.getAuditDetail() == null ? 0 : media.getAuditDetail().getStatus();
+                if (auditStatus == 3) {
+                    auditPassed++;
+                } else if (auditStatus == 1) {
+                    auditPending++;
+                } else {
+                    auditRejected++;
+                }
+
+                String episodeNo = parseEpisodeNo(media.getName());
+                if (episodeNo == null) {
+                    warnings.add("剧目 " + dramaId + " 的视频「" + media.getName() + "」解析不出集号，已跳过");
+                    continue;
+                }
+
+                CourseDetails exist = existsByName.get(episodeNo);
+                if (exist == null) {
+                    CourseDetails details = new CourseDetails();
+                    details.setCourseId(course.getCourseId());
+                    details.setCourseDetailsName(episodeNo);
+                    details.setWxMediaId(media.getMediaId());
+                    details.setCreateTime(now);
+                    details.setGoodNum(0);
+                    details.setGood(2);
+                    details.setPrice(BigDecimal.ZERO);
+                    details.setJifen(BigDecimal.ZERO);
+                    details.setIsPrice(2);
+                    // 直接走 dao，绕开 CourseDetailsService.insert 里的抖音上传
+                    courseDetailsDao.insert(details);
+                    existsByName.put(episodeNo, details);
+                    inserted++;
+                } else if (!Long.valueOf(media.getMediaId()).equals(exist.getWxMediaId())) {
+                    // 只更新 wx_media_id，其余字段为 null 不参与更新，不动后台已配好的价格封面
+                    CourseDetails patch = new CourseDetails();
+                    patch.setCourseDetailsId(exist.getCourseDetailsId());
+                    patch.setWxMediaId(media.getMediaId());
+                    courseDetailsDao.updateById(patch);
+                    exist.setWxMediaId(media.getMediaId());
+                    updated++;
+                } else {
+                    unchanged++;
+                }
+            }
+            totalInserted += inserted;
+            totalUpdated += updated;
+
+            Map<String, Object> row = new LinkedHashMap<>();
+            row.put("dramaId", dramaId);
+            row.put("courseId", course.getCourseId());
+            row.put("title", course.getTitle());
+            row.put("isNew", isNewCourse ? 1 : 0);
+            row.put("mediaCount", mediaList.size());
+            row.put("inserted", inserted);
+            row.put("updated", updated);
+            row.put("unchanged", unchanged);
+            row.put("auditPassed", auditPassed);
+            row.put("auditPending", auditPending);
+            row.put("auditRejected", auditRejected);
+            report.add(row);
+        }
+
+        String msg = "同步完成：" + report.size() + " 部剧，新增 " + totalInserted + " 集，更新 " + totalUpdated + " 集";
+        return Result.success(msg).put("data", report).put("warnings", warnings);
+    }
+
+    /**
+     * 不传 dramaId 调 listmedia，分页拉取小程序账号下的全部媒资
+     */
+    private List<ListMediaResponse.MediaInfo> listAllWxMedia() {
+        List<ListMediaResponse.MediaInfo> all = new ArrayList<>();
+        for (int page = 0; page < WX_MEDIA_MAX_PAGE; page++) {
+            ListMediaRequest request = new ListMediaRequest();
+            request.setLimit(WX_MEDIA_PAGE_SIZE);
+            request.setOffset(page * WX_MEDIA_PAGE_SIZE);
+            List<ListMediaResponse.MediaInfo> mediaInfoList = wechatMpService.listMedia(request).getMediaInfoList();
+            if (CollUtil.isEmpty(mediaInfoList)) {
+                break;
+            }
+            all.addAll(mediaInfoList);
+            if (mediaInfoList.size() < WX_MEDIA_PAGE_SIZE) {
+                break;
+            }
+        }
+        return all;
+    }
+
+    /**
+     * 用媒资信息拼一部新剧。默认下架 + 免费，封面简介等补齐后再在后台手动上架
+     */
+    private Course buildCourseFromMedia(long dramaId, List<ListMediaResponse.MediaInfo> mediaList, String now) {
+        String title = null;
+        for (ListMediaResponse.MediaInfo media : mediaList) {
+            title = parseDramaTitle(media.getName());
+            if (StringUtils.isNotBlank(title)) {
+                break;
+            }
+        }
+        if (StringUtils.isBlank(title)) {
+            title = "微信剧目" + dramaId;
+        }
+
+        Course course = new Course();
+        course.setTitle(title);
+        course.setWxMediaId(dramaId);
+        course.setCourseType(1);
+        course.setStatus(2);
+        course.setIsDelete(0);
+        course.setIsOver(0);
+        course.setIsPrice(2);
+        course.setPrice(BigDecimal.ZERO);
+        course.setJifen(BigDecimal.ZERO);
+        course.setPayNum(0);
+        course.setViewCounts(0);
+        course.setIsRecommend(0);
+        course.setCreateTime(now);
+        course.setUpdateTime(now);
+        return course;
+    }
+
+    /**
+     * 从媒资文件名解析剧名，如「我的演艺 - 第1集」→「我的演艺」；没有分隔符则返回 null
+     */
+    private String parseDramaTitle(String mediaName) {
+        if (StringUtils.isBlank(mediaName)) {
+            return null;
+        }
+        int index = mediaName.lastIndexOf(WX_MEDIA_NAME_SEPARATOR);
+        if (index <= 0) {
+            return null;
+        }
+        return mediaName.substring(0, index).trim();
+    }
+
+    /**
+     * 从媒资文件名解析集号，取分隔符后半段里第一组数字，如「我的演艺 - 第12集.mp4」→「12」；解析不出返回 null
+     */
+    private String parseEpisodeNo(String mediaName) {
+        if (StringUtils.isBlank(mediaName)) {
+            return null;
+        }
+        int index = mediaName.lastIndexOf(WX_MEDIA_NAME_SEPARATOR);
+        String tail = index < 0 ? mediaName : mediaName.substring(index + WX_MEDIA_NAME_SEPARATOR.length());
+        // 先去掉扩展名，否则 .mp4 里的 4 会被当成集号
+        tail = FILE_EXTENSION_PATTERN.matcher(tail).replaceAll("");
+        Matcher matcher = EPISODE_NO_PATTERN.matcher(tail);
+        if (!matcher.find()) {
+            return null;
+        }
+        String episodeNo = matcher.group();
+        // course_details_name 存纯数字，后端多处直接 Integer.parseInt，这里顺手去掉前导零
+        try {
+            return String.valueOf(Integer.parseInt(episodeNo));
+        } catch (NumberFormatException e) {
+            // 数字长到超出 int，文件名多半不是集号，原样存下让后台能看出来
+            return episodeNo;
+        }
     }
 
 }

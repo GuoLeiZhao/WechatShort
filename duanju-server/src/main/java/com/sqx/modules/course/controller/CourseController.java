@@ -83,6 +83,12 @@ public class CourseController extends AbstractController {
         return courseService.synCourse();
     }
 
+    @GetMapping("/syncWechatDrama")
+    @ApiOperation("一键同步微信短剧")
+    public Result syncWechatDrama(){
+        return courseService.syncWechatDrama();
+    }
+
     @PostMapping("/updateCourseDetails")
     @ApiOperation("批量修改集")
     public Result updateCourseDetails(String ids, BigDecimal price, BigDecimal jifen,String content,String titleImg){

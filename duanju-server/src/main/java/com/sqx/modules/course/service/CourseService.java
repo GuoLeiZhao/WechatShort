@@ -22,6 +22,11 @@ public interface CourseService extends IService<Course> {
 
     Result synCourse();
 
+    /**
+     * 一键同步微信短剧：拉取小程序账号下的全部媒资，自动建剧、建集并回填媒资ID
+     */
+    Result syncWechatDrama();
+
     Result updateCourseDetails(String ids, BigDecimal price, BigDecimal jifen, String content, String titleImg);
 
     Result updateCourseStatus(String ids, Integer status);

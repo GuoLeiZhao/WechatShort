@@ -52,6 +52,10 @@
 				<el-button style="margin-left:15px;" size="mini" plain type="primary" icon="document" @click="tongbu"
 					v-if="show">同步资源
 				</el-button>
+				<el-button style="margin-left:15px;" size="mini" type="success" icon="document"
+					:loading="wxSyncLoading" @click="syncWechatDrama" :disabled="!isAuth('mission:add')">
+					一键同步微信短剧
+				</el-button>
 			</div>
 			<el-table v-loading="tableDataLoading" :data="tableData.list" @selection-change="changeFun">
 				<el-table-column type="selection">
@@ -520,6 +524,42 @@
 				</div>
 			</el-dialog>
 
+			<!-- 一键同步微信短剧的结果 -->
+			<el-dialog title="微信短剧同步结果" :visible.sync="wxSyncVisible" width="90%" center="">
+				<div style="margin-bottom: 10px;color: #909399;font-size: 13px;">
+					同步进来的剧默认是【下架 + 免费】状态，确认封面简介无误后，请在列表里手动上架、按需改价。
+					只有「已过审」的集才能在小程序里播放。
+				</div>
+				<el-table :data="wxSyncReport" max-height="400">
+					<el-table-column prop="dramaId" label="微信剧目ID" width="120"></el-table-column>
+					<el-table-column prop="courseId" label="本地剧ID" width="100"></el-table-column>
+					<el-table-column prop="title" label="剧名" width="200"></el-table-column>
+					<el-table-column label="本地剧" width="100">
+						<template slot-scope="scope">
+							<el-tag v-if="scope.row.isNew==1" size="mini" type="success">新建</el-tag>
+							<el-tag v-else size="mini" type="info">已存在</el-tag>
+						</template>
+					</el-table-column>
+					<el-table-column prop="mediaCount" label="微信集数" width="100"></el-table-column>
+					<el-table-column prop="inserted" label="新增集" width="90"></el-table-column>
+					<el-table-column prop="updated" label="更新集" width="90"></el-table-column>
+					<el-table-column prop="unchanged" label="无变化" width="90"></el-table-column>
+					<el-table-column prop="auditPassed" label="已过审" width="90"></el-table-column>
+					<el-table-column prop="auditPending" label="审核中" width="90"></el-table-column>
+					<el-table-column prop="auditRejected" label="未过审" width="90"></el-table-column>
+				</el-table>
+				<div v-if="wxSyncWarnings.length > 0" style="margin-top: 15px;">
+					<div style="color: #E6A23C;margin-bottom: 5px;">以下内容没能同步：</div>
+					<div v-for="(item,index) in wxSyncWarnings" :key="index"
+						style="color: #E6A23C;font-size: 13px;line-height: 22px;">
+						{{item}}
+					</div>
+				</div>
+				<div slot="footer" class="dialog-footer">
+					<el-button type="primary" @click="wxSyncVisible = false">知道了</el-button>
+				</div>
+			</el-dialog>
+
 		</el-tab-pane>
 		<!-- <el-tab-pane label="视频类别" name="third">
 			<div style="display: inline-block;float: right;">
@@ -745,6 +785,11 @@
 		},
 		data() {
 			return {
+				// 一键同步微信短剧
+				wxSyncLoading: false,
+				wxSyncVisible: false,
+				wxSyncReport: [],
+				wxSyncWarnings: [],
 				openValue: 1,
 				closeValue: 0,
 				openValue1: 1,
@@ -2087,6 +2132,49 @@
 						}
 					}
 				})
+			},
+			// 一键同步微信短剧：拉全量微信媒资，自动建剧建集并回填媒资ID
+			syncWechatDrama() {
+				this.$confirm(`将拉取微信媒资库里的全部剧集，自动建剧、建集并回填媒资ID。已存在的剧只补媒资ID，不会覆盖已配好的价格和封面。确定同步?`, '一键同步微信短剧', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.wxSyncLoading = true
+					this.$http({
+						url: this.$http.adornUrl('course/syncWechatDrama'),
+						method: 'get',
+						params: this.$http.adornParams({})
+					}).then(({
+						data
+					}) => {
+						this.wxSyncLoading = false
+						if (data.code == 0) {
+							this.wxSyncReport = data.data || []
+							this.wxSyncWarnings = data.warnings || []
+							this.wxSyncVisible = true
+							this.$message({
+								message: data.msg,
+								type: 'success',
+								duration: 3000
+							})
+							this.dataSelect()
+						} else {
+							this.$message({
+								message: data.msg,
+								type: 'error',
+								duration: 5000
+							})
+						}
+					}).catch(() => {
+						this.wxSyncLoading = false
+						this.$message({
+							message: '同步失败，请查看后端日志',
+							type: 'error',
+							duration: 5000
+						})
+					})
+				}).catch(() => {})
 			},
 			// 同步资源
 			tongbu() {
