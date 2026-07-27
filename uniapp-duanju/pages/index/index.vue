@@ -12,7 +12,8 @@
 					<u-image :src="item.titleImg" width="343rpx" height="457rpx" border-radius="0"/>
 					<view class="item-info flex flex-direction">
 						<view class="item-title">{{item.title}}</view>
-						<view class="item-sub-title">{{item.classificationName ? item.classificationName + ' · ' : ''}}{{item.courseLabel}}</view>
+						<!-- 分类暂不显示：后台「类别」选择器被注释，剧目挂不上分类 -->
+						<view class="item-sub-title">{{item.courseLabel}}</view>
 					</view>
 				</view>
 			</view>
