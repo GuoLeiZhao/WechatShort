@@ -5,22 +5,6 @@
 		<view class="top-bar flex align-center">
 			<span class="top-bar-title">剧场</span>
 		</view>
-		<view class="swipers justify-center">
-			<!-- 轮播图 -->
-			<swiper :indicator-dots="false"
-				:display-multiple-items="1"
-				previous-margin="95rpx"
-				next-margin="95rpx"
-				class="swiper" 
-				:autoplay="true" 
-				interval="5000" 
-				duration="500"
-				:circular="true">
-				<swiper-item v-for="(item,index) in swiperList" :key='index' @tap="goPage(item.url)">
-					<image :src="item.imageUrl" mode="aspectFill" style="width: 560rpx;height: 280rpx;border-radius: 32rpx;"></image>
-				</swiper-item>
-			</swiper>
-		</view>
 		<view class="video-list-box flex flex-direction">
 			<span class="title">全部影片</span>
 			<view class="video-list flex flex-wrap">
@@ -818,17 +802,6 @@
 			font-size: 36rpx;
 			color: #333333;
 			line-height: 88rpx;
-		}
-	}
-
-	.swipers {
-		width: 750rpx;
-		height: 280rpx;
-		position: relative;
-		
-		margin-top: 32rpx;
-		.swiper {
-			height: 280rpx;
 		}
 	}
 
