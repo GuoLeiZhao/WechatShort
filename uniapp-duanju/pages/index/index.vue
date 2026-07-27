@@ -1,12 +1,10 @@
 <template>
 	<view style="padding-bottom: 20rpx;">
-		<view class="top-bg"/>
 		<!-- 顶部栏：与微信胶囊按钮同一行，左侧标题右侧留给胶囊 -->
 		<view class="top-bar flex align-center">
 			<span class="top-bar-title">剧场</span>
 		</view>
-		<view class="video-list-box flex flex-direction">
-			<span class="title">全部影片</span>
+		<view class="video-list-box">
 			<view class="video-list flex flex-wrap">
 				<view class="video-item"
 				@click="posterSuccess(item)"
@@ -721,18 +719,8 @@
 
 <style lang="scss">
 	page {
-		background-color: #F5F7FF
-	}
-	.top-bg {
-		position: absolute;
-		background-image: url('https://wefly.work/img/20250324/362a135140b244c89313121950a9cbdb.webp');
-		background-repeat: no-repeat;
-		background-size: cover;
-		width: 750rpx;
-		height: 400rpx;
-		// #ifdef H5
-		top: -88rpx;
-		// #endif
+		// 中性浅灰，比原来的 #F5F7FF 少一层蓝调，白卡片压在上面更干净
+		background-color: #F5F5F7
 	}
 
 	.follow {
@@ -792,6 +780,8 @@
 		height: 88rpx;
 		padding: 0 32rpx;
 		box-sizing: border-box;
+		// 白底顶栏，跟下方浅灰页面自然分层，不用分割线
+		background-color: #FFFFFF;
 		// #ifdef MP-WEIXIN
 		padding-top: var(--status-bar-height);
 		height: calc(88rpx + var(--status-bar-height));
@@ -800,33 +790,23 @@
 		.top-bar-title {
 			font-weight: bold;
 			font-size: 36rpx;
-			color: #333333;
+			color: #222222;
 			line-height: 88rpx;
+			letter-spacing: 1rpx;
 		}
 	}
 
 	.video-list-box {
-		margin-top: 32rpx;
+		// 顶部栏之下直接是卡片，无分区标题
+		margin-top: 24rpx;
 		width: 750rpx;
 		padding: 0 24rpx;
 		box-sizing: border-box;
 		margin-bottom: 24rpx;
-		
-		.title {
-			height: 52rpx;
-			font-family: PingFangSC, PingFang SC;
-			font-weight: 500;
-			font-size: 36rpx;
-			color: #333333;
-			line-height: 52rpx;
-			text-align: left;
-			font-style: normal;
-		}
-		
+
 		.video-list {
 			// 内容宽 702rpx（750 - 左右各 24），两列各 343rpx，中间正好剩 16rpx
 			justify-content: space-between;
-			margin-top: 24rpx;
 			.video-item {
 				width: 343rpx;
 				// 不用 flex 的 row-gap，安卓旧 WebView 支持不稳，改用 margin
