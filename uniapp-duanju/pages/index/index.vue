@@ -1,21 +1,16 @@
 <template>
 	<view style="padding-bottom: 20rpx;">
 		<view class="top-bg"/>
-		<view class="top flex align-center justify-center">
-			<!-- 搜索 -->
-			<view class="top-search flex align-center justify-center">
-<!--				<view @click.stop="goSearch" class="top-search-box flex align-center justify-center">-->
-<!--					<u-image src="https://duanju-dev.oss-cn-hangzhou.aliyuncs.com/front/uniapp-duanju/static/images/index/search.png" width="28rpx" height="28rpx"></u-image>-->
-<!--					<span>今日正在热播</span>-->
-<!--				</view>-->
-			</view>
+		<!-- 顶部栏：与微信胶囊按钮同一行，左侧标题右侧留给胶囊 -->
+		<view class="top-bar flex align-center">
+			<span class="top-bar-title">剧场</span>
 		</view>
 		<view class="swipers justify-center">
 			<!-- 轮播图 -->
 			<swiper :indicator-dots="false"
-				:display-multiple-items="1" 
-				previous-margin="96rpx"
-				next-margin="74rpx"
+				:display-multiple-items="1"
+				previous-margin="95rpx"
+				next-margin="95rpx"
 				class="swiper" 
 				:autoplay="true" 
 				interval="5000" 
@@ -26,35 +21,17 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		<!-- 金刚区 -->
-		<view class="centers">
-			<!-- 金刚区 -->
-			<view class="centers-cistrict flex align-center justify-center">
-				<swiper 
-					style="width:100%;height:100%"
-					:display-multiple-items="3"
-					:autoplay="false" 
-					next-margin="32rpx"
-				>
-					<swiper-item v-for="(item,index) in gridList" :key="index" >
-						<view class="swiper-item flex flex-direction" @click="goGridList(item)">
-							<u-image width="64rpx" height="64rpx" :src="item.imageUrl"/>
-							<span class="title">{{item.name}}</span> 
-							<span class="sub-title">{{item.describes}}</span> 
-						</view>
-					</swiper-item>
-				</swiper>
-			</view>
-		</view>
 		<view class="video-list-box flex flex-direction">
 			<span class="title">全部影片</span>
-			<view class="video-list flex flex-wrap flex-treble">
-				<view class="video-item flex flex-direction"
+			<view class="video-list flex flex-wrap">
+				<view class="video-item"
 				@click="posterSuccess(item)"
 				 v-for="(item, idx) in courseList" :key="idx">
-					<u-image :src="item.titleImg" width="224rpx" height="312rpx" border-radius="16rpx"/>
-					<view class="item-title">{{item.title}}</view>
-					<view class="item-sub-title">全集·{{item.courseLabel}}</view>
+					<u-image :src="item.titleImg" width="343rpx" height="457rpx" border-radius="0"/>
+					<view class="item-info flex flex-direction">
+						<view class="item-title">{{item.title}}</view>
+						<view class="item-sub-title">{{item.classificationName ? item.classificationName + ' · ' : ''}}{{item.courseLabel}}</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -823,36 +800,24 @@
 		}
 	}
 
-	.top {
+	/* 顶部栏。navigationStyle 为 custom，页面内容从屏幕最顶开始，
+	   所以用 --status-bar-height 顶开状态栏；88rpx 正好是胶囊按钮那一行的高度，
+	   标题因此和胶囊水平对齐，不再留出整块空白。 */
+	.top-bar {
 		width: 750rpx;
-		
-		.top-search {
-			padding-top: 24rpx;
-			// #ifdef MP-WEIXIN
-			margin-top: 40rpx;
-			// #endif
-			width: 686rpx;
-			height: 96rpx;
-		
-			.top-search-box {
-				width: 686rpx;
-				height: 100%;
-				background: rgba(255,255,255,0.5);
-				border-radius: 16rpx;
-				backdrop-filter: blur(10px);
-				
-				span {
-					margin-left: 20rpx;
-					width: 144rpx;
-					height: 36rpx;
-					font-weight: 400;
-					font-size: 24rpx;
-					color: #999999;
-					line-height: 36rpx;
-					text-align: left;
-					font-style: normal;
-				}
-			}
+		height: 88rpx;
+		padding: 0 32rpx;
+		box-sizing: border-box;
+		// #ifdef MP-WEIXIN
+		padding-top: var(--status-bar-height);
+		height: calc(88rpx + var(--status-bar-height));
+		// #endif
+
+		.top-bar-title {
+			font-weight: bold;
+			font-size: 36rpx;
+			color: #333333;
+			line-height: 88rpx;
 		}
 	}
 
@@ -867,59 +832,11 @@
 		}
 	}
 
-	.centers {
-		width: 100%;
-		height: 228rpx;
-		margin-top: 32rpx;
-		padding-left: 32rpx;
-		// padding-right: 32rpx;
-		
-		.centers-cistrict {
-			width: 100%;
-			height: 228rpx;
-
-			.swiper-item {
-				width: 208rpx;
-				height: 228rpx;
-				background: #FFFFFF;
-				border-radius: 20rpx;
-				padding: 32rpx 24rpx;
-				
-				.title {
-					width: 128rpx;
-					height: 48rpx;
-					// font-family: AlimamaShuHeiTi, AlimamaShuHeiTi;
-					font-weight: bold;
-					font-size: 32rpx;
-					color: #333333;
-					line-height: 48rpx;
-					font-style: normal;
-					margin-top: 16rpx;
-				}
-				
-				.sub-title {
-					width: 144rpx;
-					height: 36rpx;
-					// font-family: PingFangSC, PingFang SC;
-					font-weight: 400;
-					font-size: 24rpx;
-					color: #999999;
-					line-height: 36rpx;
-					text-align: left;
-					font-style: normal;
-					margin-top: 8rpx;
-				}
-			}
-		}
-	}
-
 	.video-list-box {
 		margin-top: 32rpx;
 		width: 750rpx;
-		min-height: 600rpx;
-		background: #FFFFFF;
-		border-radius: 16rpx;
-		padding: 32rpx 24rpx;
+		padding: 0 24rpx;
+		box-sizing: border-box;
 		margin-bottom: 24rpx;
 		
 		.title {
@@ -934,30 +851,44 @@
 		}
 		
 		.video-list {
-			column-gap: 14rpx;
+			// 内容宽 702rpx（750 - 左右各 24），两列各 343rpx，中间正好剩 16rpx
+			justify-content: space-between;
+			margin-top: 24rpx;
 			.video-item {
-				height: 100%;
-				margin-top: 24rpx;
+				width: 343rpx;
+				// 不用 flex 的 row-gap，安卓旧 WebView 支持不稳，改用 margin
+				margin-bottom: 24rpx;
+				background: #FFFFFF;
+				border-radius: 20rpx;
+				// 让封面的直角被卡片圆角裁掉
+				overflow: hidden;
+				.item-info {
+					padding: 16rpx 20rpx 20rpx;
+				}
 				.item-title {
-					max-width: 224rpx;
-					word-wrap: inherit;
 					font-family: PingFangSC, PingFang SC;
-					font-weight: 400;
-					font-size: 28rpx;
+					font-weight: bold;
+					font-size: 32rpx;
 					color: #333333;
+					line-height: 44rpx;
 					text-align: left;
 					font-style: normal;
-					margin-top: 16rpx;
+					// 剧名过长省略，防止两列卡片高度不齐
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 				.item-sub-title {
-					max-width: 224rpx;
-					height: 40rpx;
 					font-family: PingFangSC, PingFang SC;
 					font-weight: 400;
 					font-size: 24rpx;
 					color: #999999;
-					line-height: 40rpx;
+					line-height: 36rpx;
 					font-style: normal;
+					margin-top: 8rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 			}
 		}
