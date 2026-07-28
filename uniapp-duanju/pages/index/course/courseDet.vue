@@ -68,7 +68,7 @@
 								<view class="text">预览</view>
 							</view>
 						</view>
-						<view class="right padding-right" v-if="courseDet.isMyCourse == 1 && !isVIP">
+						<view class="right padding-right" v-if="courseDet.isMyCourse == 1 && !isVIP && showPayEntry">
 							<view class="cart btn" @click="bugCourse">购买资源 {{'¥'+courseDet.price}}</view>
 							<view class="buy btn" @click="openVIP">开通会员免费</view>
 						</view>
@@ -150,7 +150,7 @@
 								<view class="text">预览</view>
 							</view>
 						</view>
-						<view class="right padding-right" v-if="courseDet.isMyCourse == 1 && !isVIP">
+						<view class="right padding-right" v-if="courseDet.isMyCourse == 1 && !isVIP && showPayEntry">
 							<view class="cart btn" @click="bugCourse">购买资源 {{'¥'+courseDet.price}}</view>
 							<view class="buy btn " @click="openVIP">开通会员免费</view>
 						</view>
@@ -218,6 +218,13 @@
 	export default {
 		data() {
 			return {
+				// 微信小程序端不提供虚拟商品购买入口，付费能力仅在 H5/其它端开放
+				// #ifdef MP-WEIXIN
+				showPayEntry: false,
+				// #endif
+				// #ifndef MP-WEIXIN
+				showPayEntry: true,
+				// #endif
 				TabCur: '介绍',
 				tabList: [{
 						name: '介绍',
@@ -469,9 +476,11 @@
 			},
 			// 开通会员
 			openVIP() {
+				// #ifndef MP-WEIXIN
 				uni.navigateTo({
 					url: '/pages/me/vip/index'
 				})
+				// #endif
 			},
 			// 购买资源
 			bugCourse(e) {
@@ -489,9 +498,11 @@
 							})
 							that.getDataList(that.courseId);
 						} else if (res.code == 0 && res.data.flag == 2) {
+							// #ifndef MP-WEIXIN
 							uni.navigateTo({
 								url: '/pages/index/course/orderDet?courseId=' + that.courseId
 							})
+							// #endif
 						} else {
 							uni.showToast({
 								title: res.msg,
@@ -508,6 +519,8 @@
 				}
 
 			},
+			// 公众号/H5 支付，微信小程序端不编译（虚拟商品购买仅在 H5 等其它端开放）
+			// #ifndef MP-WEIXIN
 			callPay: function(response) {
 				if (typeof WeixinJSBridge === "undefined") {
 					if (document.addEventListener) {
@@ -554,6 +567,7 @@
 					}
 				);
 			},
+			// #endif
 			// 发表评论
 			insertComment() {
 				if (!this.isLogin) {

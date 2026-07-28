@@ -195,6 +195,8 @@
 					url: 'plugin-private://wx94a6522b1d640c3b/pages/playlet/playlet?dramaId=100056&srcAppid=wxe54afd8d50e75b06'
 				});
 			},
+			// 充值 / 会员购买入口，微信小程序端不编译（对应入口已由 v-if="false" 隐藏）
+			// #ifndef MP-WEIXIN
 			moneyClick() {
 				let platform = uni.getStorageSync('platform')
 				if(platform === 'ios') {
@@ -212,8 +214,9 @@
 					this.$Request.sysLog('浏览【我的】页面，跳转【会员购买页】');
 					this.goNav('/pages/me/vip/index')
 				}
-			
+
 			},
+			// #endif
 			login() {
 				// #ifdef MP-TOUTIAO
 				let that = this;

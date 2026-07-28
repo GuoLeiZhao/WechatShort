@@ -47,12 +47,15 @@ const install = (Vue, vm) => {
 	let integral = (params = {}) => vm.$u.get('app/integral/selectByUserId', params); //查看用户积分
 	let integralDet = (params = {}) => vm.$u.get('app/integral/details', params); //查看积分获取列表
 	let message = (params = {}) => vm.$u.get('app/message/selectMessageByUserId', params); //查询用户消息
+	// 支付 / 钱包 / 提现接口，仅 H5 等其它端使用；微信小程序端对应页面已从 pages.json 排除，故不编译
+	// #ifndef MP-WEIXIN
 	let wxPay = (params = {}) => vm.$u.post('app/wxPay/wxPayJsApiOrder', params); //微信支付
 
 	let userMoney = (params = {}) => vm.$u.get('app/invite/selectUserMoney', params); //查看钱包
 	let cashMoney = (params = {}) => vm.$u.get('app/cash/cashMoney', params); //申请提现
 	let selectPay = (params = {}) => vm.$u.get('app/cash/selectPayDetails', params); //提现记录
 	let moneyDet = (params = {}) => vm.$u.get('app/cash/queryUserMoneyDetails', params); //钱包明细
+	// #endif
 	let type = (params = {}) => vm.$u.get('app/common/type', params); //钱包明细
 
 
@@ -102,12 +105,16 @@ const install = (Vue, vm) => {
 		integralDet,
 		message,
 		VipOrders,
+		// #ifndef MP-WEIXIN
 		wxPay,
+		// #endif
 		moneyList,
+		// #ifndef MP-WEIXIN
 		userMoney,
 		cashMoney,
 		selectPay,
 		moneyDet,
+		// #endif
 		type,
 
 		help,

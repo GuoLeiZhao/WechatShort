@@ -107,6 +107,7 @@
 		},
 
 
+		// #ifndef MP-WEIXIN
 		{
 			"path": "pages/me/vip/index",
 			"style": {
@@ -121,6 +122,7 @@
 				}
 			}
 		},
+		// #endif
 		// {
 		// 	"path": "pages/me/erweimaRegister",
 		// 	"style": {
@@ -244,6 +246,7 @@
 		// 		"navigationBarTitleText": "福利"
 		// 	}
 		// },
+		// #ifndef MP-WEIXIN
 		{
 			"path": "pages/coupon/goodDetail",
 			"style": {
@@ -254,6 +257,7 @@
 				"navigationBarTitleText": ""
 			}
 		},
+		// #endif
 		// {
 		// 	"path": "pages/coupon/success",
 		// 	"style": {
@@ -348,6 +352,7 @@
 					}
 				}
 			},
+			// #ifndef MP-WEIXIN
 			{
 				"path": "order/index",
 				"style": {
@@ -363,6 +368,7 @@
 					}
 				}
 			},
+			// #endif
 			{
 				"path": "course/index",
 				"style": {
@@ -378,6 +384,7 @@
 					}
 				}
 			},
+			// #ifndef MP-WEIXIN
 			{
 				"path": "invite/index",
 				"style": {
@@ -477,6 +484,7 @@
 					}
 				}
 			},
+			// #endif
 			{
 				"path": "collect/index",
 				"style": {
@@ -515,6 +523,7 @@
 					"navigationBarBackgroundColor": "#FFFFFF"
 				}
 			},
+			// #ifndef MP-WEIXIN
 			{
 				"path": "integral/inviteDet",
 				"style": {
@@ -529,6 +538,7 @@
 					}
 				}
 			},
+			// #endif
 			{
 				"path": "setting/xieyi",
 				"style": {
@@ -570,7 +580,9 @@
 						}
 					}
 				}
-			}, {
+			},
+			// #ifndef MP-WEIXIN
+			{
 				"path": "detail/detail",
 				"style": {
 					"navigationBarTitleText": "",
@@ -600,7 +612,9 @@
 					"enablePullDownRefresh": true
 				}
 
-			}, {
+			},
+			// #endif
+			{
 				"path": "jilu/jilu",
 				"style": {
 					// #ifdef H5
@@ -659,7 +673,9 @@
 					"enablePullDownRefresh": true
 				}
 
-			}, {
+			},
+			// #ifndef MP-WEIXIN
+			{
 				"path": "payOrder/payOrder",
 				"style": {
 					// #ifdef H5
@@ -669,7 +685,9 @@
 					"enablePullDownRefresh": false
 				}
 
-			}, {
+			},
+			// #endif
+			{
 				"path": "setting/logOff",
 				"style": {
 					// #ifdef H5
