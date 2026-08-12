@@ -192,7 +192,7 @@
 		methods: {
 			test(){
 				uni.navigateTo({
-					url: 'plugin-private://wx94a6522b1d640c3b/pages/playlet/playlet?dramaId=100056&srcAppid=wxe54afd8d50e75b06'
+					url: 'plugin-private://wx94a6522b1d640c3b/pages/playlet/playlet?dramaId=100056&srcAppid=wx72e7f15848221f6a'
 				});
 			},
 			// 充值 / 会员购买入口，微信小程序端不编译（对应入口已由 v-if="false" 隐藏）

@@ -91,7 +91,7 @@ import empty from '../../components/empty.vue'
 			// todo 查询
 			setTimeout(() => {
 				PlayerManager.navigateToPlayer({
-					srcAppid: 'wxe54afd8d50e75b06',
+					srcAppid: 'wx72e7f15848221f6a',
 					dramaId: this.courseId,
 					extParam: encodeURIComponent('origin_drama=' + this.courseId + '&origin_serial=' + this
 						.courseDetailsId), // 需要encode
