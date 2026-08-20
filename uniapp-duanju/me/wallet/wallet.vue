@@ -112,7 +112,7 @@
 		methods: {
 			test(){
 				uni.navigateTo({
-					url: 'plugin-private://wx94a6522b1d640c3b/pages/playlet/playlet?dramaId=100056&srcAppid=wx72e7f15848221f6a&serialNo=1&extParam=&bookId=41000101464&sid=1&channelId=34025&referral_id=25451857&from=no_back'
+					url: 'plugin-private://wx94a6522b1d640c3b/pages/playlet/playlet?dramaId=100056&srcAppid=wx68a05819ade65197&serialNo=1&extParam=&bookId=41000101464&sid=1&channelId=34025&referral_id=25451857&from=no_back'
 				});
 			},
 			/**

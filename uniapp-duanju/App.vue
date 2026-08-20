@@ -218,7 +218,7 @@
 					// 访问令牌，用于上报接口 header.access-token
 					access_token: '__GDT_ACCESS_TOKEN__',
 					// 微信小程序APPID（可选）
-					appid: 'wx72e7f15848221f6a',
+					appid: 'wx68a05819ade65197',
 					// 微信 openid，openid 和 unionid 只能填一个（优先填写openid）, 可以调用 setOpenId 设置
 					openid: openId,
 					// 是否开启自动采集，选填，默认为true
